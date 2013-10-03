@@ -8,31 +8,33 @@
 # Remember to re-run ikiwiki --setup any time you edit this file.
 #
 # name of the wiki
-wikiname: wiki
+wikiname: zetbox
 # contact email for wiki
-#adminemail: me@example.com
+adminemail: office@dasz.at
 # users who are wiki admins
 adminuser: []
 # users who are banned from the wiki
 banned_users: []
 # where the source of the wiki is located
-srcdir: ''
+srcdir: .
 # where to build the wiki
-destdir: ''
+destdir: ../output
 # base url to the wiki
-url: ''
+url: http://zetbox.at
 # url to the ikiwiki.cgi
-cgiurl: ''
+#cgiurl: ''
 # filename of cgi wrapper to generate
-cgi_wrapper: ''
+#cgi_wrapper: ''
 # mode for cgi_wrapper (can safely be made suid)
-cgi_wrappermode: 06755
+#cgi_wrappermode: 06755
 # rcs backend to use
-rcs: ''
+#rcs: ''
 # plugins to add to the default configuration
-add_plugins: []
+add_plugins:
+- goodstuff
 # plugins to disable
-disable_plugins: []
+disable_plugins:
+- openid
 # additional directory to search for template files
 templatedir: /usr/share/ikiwiki/templates
 # base wiki source location
@@ -48,11 +50,11 @@ prefix_directives: 1
 # use page/index.mdwn source files
 indexpages: 0
 # enable Discussion pages?
-discussion: 1
+discussion: 0
 # name of Discussion pages
 discussionpage: Discussion
 # generate HTML5?
-html5: 0
+html5: 1
 # only send cookies over SSL connections?
 sslcookie: 0
 # extension to use for new pages
@@ -78,7 +80,7 @@ libdir: ''
 # environment variables
 ENV: {}
 # time zone name
-#timezone: US/Eastern
+timezone: Europe/Vienna
 # regexp of normally excluded files to include
 #include: ^\.htaccess$
 # regexp of files that should be skipped
