@@ -6,3 +6,7 @@ msgstr "zetbox"
 #. type: Plain text
 msgid "Welcome to the zetbox documentation site."
 msgstr "Willkommen in der zetbox Dokumentation."
+
+#. type: Bullet: '* '
+msgid "How to [[setup a module|HowTos/ModuleSetup]]."
+msgstr ""

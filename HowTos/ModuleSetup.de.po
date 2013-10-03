@@ -1,0 +1,1167 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-03 16:41+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Plain text
+msgid ""
+"This article will show you how we've implemented zetbox.Workflow. It will "
+"cover most of the features of zetbox."
+msgstr ""
+
+#. type: Title #
+#, no-wrap
+msgid "Setting up the Project"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Get the latest version of the zetbox Application Template (from\n"
+"<a href=\"https://github.com/daszat/zetbox/blob/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix\" title=\"ZetboxApp.vsix\" target=\"_blank\">github</a>) and install it. Then, in\n"
+"Visual Studio, create a new zetbox Application:\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img CreateSolution.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A wizard will open and ask you for the solution setup. Choose nHibernate or "
+"EF and MS SQL Server or PostgreSQL depending on your development "
+"environment. All combinations are valid, tested, supported, and can be "
+"changed in the configuration afterwards. The wizard will not create the "
+"database automatically. You can use the \"Create database\" to instruct the "
+"wizard to do so, or manually supply a connection string. Check that "
+"everything is correct by using the \"Test connection\" button. Finally hit "
+"\"Create\" and wait until Visual Studio has calmed down."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img SolutionSetup.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"You will see a lot of failing references - don't worry, hit NuGet's "
+"\"Package Restore\" and compile the solution. This will install zetbox and "
+"all dependencies from the nuget repository. Later, NuGet will also ensure "
+"that you can upgrade to the latest versions and keep your dependencies "
+"straight."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img NewSolution1.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"One last reference will stay invalid - it's the Zetbox.Objects reference. This\n"
+"is OK as we didn't generated any code yet. We will fix it. Get a shell, change\n"
+"to the solution directory and execute <code>zbResetAll.cmd</code>:\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img ResetAllCmd.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"For upgrading to the latest zetbox version enter <code>Update-Package</code> in\n"
+"the NuGet \"Package Manager Console\" and run <code>ZbDeployAll.cmd</code> from a\n"
+"shell. This will fetch and install the newest version of all packages as well\n"
+"as update your local database to the newest schema.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img UpdatePackage.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Compile the Solution. Setup is finished now. So, what did we get:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img SolutionItems.png]]\n"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**zetbox.Workflow.Bootstrapper**: Ignore this, we are working on a better "
+"deployment solution"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**zetbox.Workflow.Client**: An assembly containing all client side code. "
+"Here are all your ViewModels, Client actions and client side reporting "
+"templates"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**zetbox.Workflow.Client.Tests**: A test assembly for integration tests"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**zetbox.Workflow.Client.WPF**: An assembly containing all WPF Toolkit "
+"specific code. Here are all you WPF-Views"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**zetbox.Workflow.Common**: An assembly containing all common code (running "
+"on both the Server **and** the Client). Here are all your common "
+"definitions, ToString() actions and DTO's"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**zetbox.Workflow.Server**: An assembly containing all server side code. "
+"Here are all your server side actions and server side reports (like <a href="
+"\"http://code.google.com/p/linq-cube/\">LinqCube</a>)"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**zetbox.Workflow.WPF**: This is your main client executable. In this "
+"project you define your app icon and startup splash screen."
+msgstr ""
+
+#. type: Plain text
+msgid "Let's have a look into the file system:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img FolderStructure.png]]\n"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**.nuget**: NuGet stuff"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**.zetbox**: Local deployment configuration and project targets. Will be "
+"updated by NuGet!"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**bin\\CodeGen**: All generated Code and Assemblies are placed here (by "
+"zbResetAll & zbDeployAll)"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**bin\\Debug**: Project output and install location of your local zetbox "
+"installation (by .zetbox\\PrepareEnv.exe). This Folder can be deleted. "
+"Recreate it by compiling your solution. This will also do the same as "
+"zbInstall.cmd"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**Configs**: All zetbox specific configuration. Your local configuration "
+"resist in Local. all other configuration are used on the Continuous "
+"Integration Server. zbInstall will copy them to bin\\Debug\\Configs. The "
+"wizard has done it's Job and they are ready to use. We ignore them for now."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**Data**: Your Application Data directory. To import or export data from "
+"your module, edit zbDeploy.cmd and zbPublish.cmd"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**Modules**: Besides source code this is the heart of your application. "
+"zbPublish.cmd will save the schema infomation here."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**packages**: Destination for NuGet packages"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**zetbox.Workflow**: Can be deleted - the wizard will try to delete this "
+"folder, but it will fail."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**zetbox.Workflow.***: Your projects."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**StartClient.cmd**: starts your local client"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**StartServer.cmd**: starts your local server"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**ZbDeployAll.cmd**: Import schema changes from <code>Models\\*.xml</code>, "
+"ugrade the database and generate code. Optional import from <code>Data\\*."
+"xml</code>"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**ZbInstall.cmd**: Prepare your local environment (copy configs, copy zetbox "
+"binaries to bin\\debug, etc..)"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**ZbPublishAll.cmd**: Export your schema to <code>Models\\*.xml</code> and "
+"optional to <code>Data\\*.xml</code>. Also upgrade the database with the "
+"latest changes and generate code"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**ZbResetAll.cmd**: Delete your local database and do a fresh ZbDeployAll.cmd"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Some other things to mention: communication between Server and Client is "
+"configured to use WCF with a HTTP Binding on URI http://localhost:6666/"
+"ZetboxService. Run this snippet as administrator to unblock the port - "
+"otherwise Windows will throw an error."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "\tnetsh http add urlacl url=http://+:6666/ user=\"YOURDOMAIN\\Domain Users\"\n"
+msgstr ""
+
+#. type: Plain text
+msgid "This is enough for now, let's start server and client:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tStartServer.cmd\n"
+"\tStartClient.cmd\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img FirstStart.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"We are online :-) Let's create our module. Goto Apps -> Module Editor. The\n"
+"Module Editor will open:\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img ModuleEditor1.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Hit \"New Module\" and fill out the form:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img NewModule1.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid "We recommend:"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "Use a simple unique name for the module name."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"Use a C# namespace name containing your company. As we are the creators of "
+"Zetbox and are implementing a basic module, we use Zetbox.Basic as the "
+"namespace"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"Use a hopefully unique database schema name. Not too long as some databases "
+"has some name length limitations."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"**VERY IMPORTANT:** As the Module name does not match the project name\n"
+"(Zetbox.Workflow vs. Workflow) we have to edit zbPublishAll.cmd. Also remove\n"
+"export of the configuration module as it's not needed yet.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t...\n"
+"\trem publish schema data for Workflow project\n"
+"\trem no config yet ;Workflow.Config\n"
+"\tZetbox.Server.Service.exe %config% -publish ..\\..\\Modules\\Workflow.xml -ownermodules Workflow\n"
+"\tIF ERRORLEVEL 1 GOTO FAIL\n"
+"\t...\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Sadly, you have to restart the Module Editor - it's a Bug, not a Feature :-"
+"( Select the \"Workflow\" Module."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"At this stage you should have drawn a UML Diagram and be aware of all needed "
+"Classes. In this case they are:"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**WFDefinition:** This is the definition of a Workflow. Instances are "
+"spawned from this class."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**StateDefinition:** This is the definition of state within a Workflow."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**Action:** A Action defines some code that can be executed by the user or "
+"by some other trigger. An Action will trigger a StateCange logic."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**StateChange:** A StateChange logic will switch a Workflow instance to "
+"another state. They are triggered by Actions."
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"**WFInstance:** This is a Instance of a Workflow definition. It has a "
+"attached object and a logfile"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**State:** An instance of a Workflow state."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Let's create the classes. Start zetbox and go to the Module Editor. Then "
+"choose \"Object Classes\" and hit \"New\" and fill out the basic fields:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img WFDefinition1.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img WFDefinition2.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"The physical table name should be the plural form of the class name. As the\n"
+"Workflow definitions can be shared, they need to implement the interface\n"
+"<code>IModuleMember</code> and <code>IExportable</code>.  Also they can be\n"
+"started from code so <code>INamedObject</code> is also a good idea.\n"
+"<code>IChangedBy</code> is used for optimistic concurrency.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img WFDefinition3.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"\"ImplementInterfaces\" will create all properties and constraints defined "
+"by the interfaces:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img WFDefinition4.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid "If you save, there will be some errors:"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"Containment is not set - this is a bug. Change to nothing and then back to "
+"<code>Independent</code>"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"Eagerloding is not set - the Module should be eager loaded, so set it to true"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"Navigator should not have a NotNullConstrained - this is true, as the Module "
+"is optional. Delete that contstraint"
+msgstr ""
+
+#. type: Plain text
+msgid "Now we add some more basic properties:"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**Name:** A unique (within the Module) name of the Workflow"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid "**Description:** A user friendly description"
+msgstr ""
+
+#. type: Plain text
+msgid "Go to Properties and hit \"New\". Then choose a \"StringProperty\":"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img WFDefinition5.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\"Name\" is OK, so we need not \"Label\" override. It's a member of the Workflow\n"
+"Module. It has the \"Summary\" Tag so the property will be shown in all lists.\n"
+"Everything else is fine, except the \"StringRangeConstraint\". Name should be 100\n"
+"char long. Go to \"Main\" -> \"Constraints\" and add a new \"StringRangeConstraint.\n"
+"MinLength is 0, MaxLength is 100. 0 is fine as we also add a\n"
+"\"NotNullConstraint\". Do the same for Description.\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"It's time for implementing some Methods. In Visual Studio add a simple class "
+"\"WFDefinitionActions\" in the Common Project under the Folder \"Workflow\". "
+"It is important that the class resists in the correct namespace, same as the "
+"module namespace and ends with \"Actions\". Also it must be decorated with a "
+"\"Implementor\" Attribute. If not AutoFac dependencies are needed, the class "
+"has to be static."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img WFDefActions.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Each Method and ObjectClass has some code Templates. These can (and should) "
+"be copied into this class. We need this implementations:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tusing System;\n"
+"\tusing System.Collections.Generic;\n"
+"\tusing System.Linq;\n"
+"\tusing System.Text;\n"
+"\tusing Zetbox.API;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tnamespace Zetbox.Basic.Workflow\n"
+"\t{\n"
+"\t    [Implementor]\n"
+"\t    public static class WFDefinitionActions\n"
+"\t    {\n"
+"\t        [Invocation]\n"
+"\t        public static void ToString(WFDefinition obj, MethodReturnEventArgs<string> e)\n"
+"\t        {\n"
+"\t            e.Result = obj.Name;\n"
+"\t        }\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t        [Invocation]\n"
+"\t        public static void GetName(WFDefinition obj, MethodReturnEventArgs<string> e)\n"
+"\t        {\n"
+"\t            e.Result = obj.Module != null ? string.Format(\"Workflow.WFDefinitions.{0}.{1}\", obj.Module.Namespace, Regex.Replace(obj.Name, \"\\\\W\", \"_\")) : null;\n"
+"\t        }\n"
+"\t    }\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The ToString() implementation is a simple one - it's used as a display name "
+"for the instance. The GetName() implementation is important if Workflows "
+"should be created by code. See the NameObjects (TODO!!!!) documentation for "
+"details."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Don't worry about compiler errors. There is no code generated yet so every "
+"class is unknown yet. Before we will generate we should define all other "
+"classes. We'll skip that in this tutorial because it's the same as with the "
+"WFDefinition class."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Ten minutes later every class has been defined. Now it's time to define "
+"relations. Open the WFDefinition class and hit \"CreateRelation\":"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img Relation1.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A WorkflowDefinition has zero or more StateDefinitions. Storage tells the "
+"relation where the foreign key should be persisted in the database. "
+"Containment tells zetbox how classes are related to each other. In this "
+"case, a StateDefinition has a tight relation to a Workflow Definition.  "
+"\"CreateNavigator\" helps you to implement navigators on classes. We need "
+"both.  Do the same for all other relations."
+msgstr ""
+
+#. type: Plain text
+msgid "Everything is defined now - let's generate the code"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "\tzbPublishAll.cmd\n"
+msgstr ""
+
+#. type: Plain text
+msgid "The solution should compile now. If so, start the server and client."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img NewClasses.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Sadly, the classes are not working correctly. zetbox does not know about our\n"
+"method implementors yet. We have to register our assemblies now. Go to the\n"
+"Module Editor -> Assembly and create 4 Assembly instances:\n"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"zetbox.Workflow.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"zetbox.Workflow.Client.WPF, Version=1.0.0.0, Culture=neutral, "
+"PublicKeyToken=null"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"zetbox.Workflow.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+msgstr ""
+
+#. type: Bullet: ' * '
+msgid ""
+"zetbox.Workflow.Server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img AssemblyRegistration.png]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "**Be aware of the deployment restrictions!** Publish again.\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Now we can create and work with those objects now :-)."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"In our file system we have a new file and a new directory now: Modules"
+"\\Wokflow.xml and \\Modules\\Workflow\\*. This is the schema information.  "
+"It's a good time, to commit the changes to a source control system."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+"\t<ZetboxPackaging xmlns:ZetboxBase=\"Zetbox.App.Base\" xmlns:GUI=\"Zetbox.App.GUI\" date=\"2012-09-12T12:54:43.8627564Z\" xmlns=\"http://dasz.at/Zetbox\">\n"
+"\t  <ZetboxBase:Module ExportGuid=\"e27c7e66-f806-4b0b-bf03-4e14efff5336\">\n"
+"\t    <ZetboxBase:ChangedOn>2012-09-11T16:24:20.3854716Z</ZetboxBase:ChangedOn>\n"
+"\t    <ZetboxBase:CreatedOn>2012-09-11T16:24:20.3854716Z</ZetboxBase:CreatedOn>\n"
+"\t    <ZetboxBase:Name>Workflow</ZetboxBase:Name>\n"
+"\t    <ZetboxBase:Namespace>Zetbox.Basic.Workflow</ZetboxBase:Namespace>\n"
+"\t    <ZetboxBase:SchemaName>wf</ZetboxBase:SchemaName>\n"
+"\t  </ZetboxBase:Module>\n"
+"\t  <ZetboxBase:ObjectClass ExportGuid=\"f33e0ab3-84ee-4543-90c1-a615191118d2\">\n"
+"\t    <ZetboxBase:ChangedOn>2012-09-12T09:33:07.8965219Z</ZetboxBase:ChangedOn>\n"
+"\t    <ZetboxBase:CreatedOn>2012-09-12T09:33:07.8965219Z</ZetboxBase:CreatedOn>\n"
+"\t    <ZetboxBase:Description>A Action defines some code that can be executed by the user or by some other trigger. An Action will trigger a StateCange logic</ZetboxBase:Description>\n"
+"\t    <ZetboxBase:Module>e27c7e66-f806-4b0b-bf03-4e14efff5336</ZetboxBase:Module>\n"
+"\t    <ZetboxBase:Name>Action</ZetboxBase:Name>\n"
+"\t    <GUI:ShowIconInLists>false</GUI:ShowIconInLists>\n"
+"\t    <GUI:ShowIdInLists>false</GUI:ShowIdInLists>\n"
+"\t    <GUI:ShowNameInLists>false</GUI:ShowNameInLists>\n"
+"\t    <GUI:DefaultViewModelDescriptor>d8e95ac5-d46a-4dfa-a574-12ea299eadc4</GUI:DefaultViewModelDescriptor>\n"
+"\t    <ZetboxBase:IsAbstract>false</ZetboxBase:IsAbstract>\n"
+"\t    <ZetboxBase:IsFrozenObject>false</ZetboxBase:IsFrozenObject>\n"
+"\t    <GUI:IsSimpleObject>false</GUI:IsSimpleObject>\n"
+"\t    <ZetboxBase:TableName>Actions</ZetboxBase:TableName>\n"
+"\t  </ZetboxBase:ObjectClass>\n"
+"\t  ...\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"We are creating a TestWorkflow now. Two States and some Actions. Actions are "
+"defined global so they can be reused. Create them and use them in your test "
+"workflow."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"As we have some test data now, we can enable export of this data. Uncomment "
+"these lines in \"zbPublishAll.cmd\""
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tZetbox.Server.Service.exe %config% -export ..\\..\\Data\\Workflow.Data.xml -schemamodules Workflow -ownermodules Workflow\n"
+"\tIF ERRORLEVEL 1 GOTO FAIL\n"
+msgstr ""
+
+#. type: Plain text
+msgid "To re-import the test data add this to zbDeployAll.cmd"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tZetbox.Server.Service.exe %config% -import ..\\..\\Data\\Workflow.Data.xml\n"
+"\tIF ERRORLEVEL 1 GOTO FAIL\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Now we have everything we need: A working Database, source control, a basic "
+"module, a basic implementation, import/export of data, schema management.... "
+"We continue with the implementation now."
+msgstr ""
+
+#. type: Plain text
+msgid "Some interesting details:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img CalcProp.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"State.IsActive is a calculated property. A state is active, when LeftOn is "
+"null. The implementation is:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t[Invocation]\n"
+"\tpublic static void get_IsActive(State obj, PropertyGetterEventArgs<bool> e)\n"
+"\t{\n"
+"\t    e.Result = obj.LeftOn == null;\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t[Invocation]\n"
+"\tpublic static void postSet_LeftOn(State obj, PropertyPostSetterEventArgs<DateTime?> e)\n"
+"\t{\n"
+"\t    obj.Recalculate(\"IsActive\");\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Please note the post setter for LeftOn - it signals zetbox to reevaluate "
+"IsActive. We've implemented this property because IsActive is more precise "
+"than filtering on LeftOn == null. It's the same, but tells more. Calculated "
+"properties has the advantage, that they are persisted. That's why it's so "
+"important to call Recalculate()."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A workflow instance can only be initialized once with a workflow definition "
+"object. To ensure that, we've implemented these lines of code. That's not "
+"everything, we will prevent the user from setting this property later in our "
+"ViewModels. But it's good for safety."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t[Invocation]\n"
+"\tpublic static void preSet_Workflow(WFInstance obj, PropertyPreSetterEventArgs<Zetbox.Basic.Workflow.WFDefinition> e)\n"
+"\t{\n"
+"\t    if (e.OldValue == null) return; // OK\n"
+"\t    if (e.OldValue != e.NewValue) throw new NotSupportedException(\"Changing the workflow is not supported\");\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The Workflow will be initialized by calling the Start() method - that's our "
+"entry point:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t[Invocation]\n"
+"\tpublic static void Start(WFInstance obj, Zetbox.Basic.Workflow.WFDefinition workflow)\n"
+"\t{\n"
+"\t    if (workflow != null)\n"
+"\t    {\n"
+"\t        // ....\n"
+"\t    }\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"When we look at a state instance, that's the users ToDo item, we see, that "
+"it's not really usable. Let's create a ViewModel and a View."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img State1.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"When you've installed our code templates, you should find a ViewModel C# "
+"template. It should be located in a \"ViewModel\\Workflow\" folder in you "
+"Client project."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img ViewModelTemplate.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid "The code should look like this:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tnamespace zetbox.Workflow.Client.ViewModel.Workflow\n"
+"\t{\n"
+"\t    using System;\n"
+"\t    using System.Collections.Generic;\n"
+"\t    using System.Linq;\n"
+"\t    using System.Text;\n"
+"\t    using Zetbox.Client.Presentables;\n"
+"\t    using Zetbox.API;\n"
+"\t    using Zetbox.Basic.Workflow;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t    [ViewModelDescriptor]\n"
+"\t    public class StateViewModel : DataObjectViewModel\n"
+"\t    {\n"
+"\t\tpublic new delegate StateViewModel Factory(IZetboxContext dataCtx, ViewModel parent, IDataObject obj);\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\tpublic StateViewModel(IViewModelDependencies appCtx, IZetboxContext dataCtx, ViewModel parent, State obj)\n"
+"\t\t    : base(appCtx, dataCtx, parent, obj)\n"
+"\t\t{\n"
+"\t\t    State = obj;\n"
+"\t\t}\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "\t\tpublic State State { get; private set; }\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\tpublic override string Name\n"
+"\t\t{\n"
+"\t\t    get { return State.ToString(); }\n"
+"\t\t}\n"
+"\t    }\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The ViewModel is derived from a DataObjectViewModel - this is the default "
+"ViewModel, when DataObjects are displayed."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Create a WPF-UserControl \"StateEditor.xaml\". It should be located in a "
+"Folder \"View\\Workflow\" in your Client.WPF project. It looks like that:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t<UserControl x:Class=\"zetbox.Workflow.Client.WPF.View.Workflow.StateEditor\"\n"
+"\t\t     xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n"
+"\t\t     xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n"
+"\t\t     xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" \n"
+"\t\t     xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\"\n"
+"\t\t     xmlns:ctrls=\"clr-namespace:Zetbox.Client.WPF.CustomControls;assembly=Zetbox.Client.WPF.Toolkit\"\n"
+"\t\t     xmlns:client=\"clr-namespace:Zetbox.Client.Presentables;assembly=Zetbox.Client\"\n"
+"\t\t     mc:Ignorable=\"d\" \n"
+"\t\t     d:DesignHeight=\"300\" d:DesignWidth=\"300\">\n"
+"\t    <DockPanel>\n"
+"\t\t<DockPanel DockPanel.Dock=\"Top\"\n"
+"\t\t\t   Margin=\"{StaticResource AreaGroup1Margin}\">\n"
+"\t\t    <Image DockPanel.Dock=\"Left\"\n"
+"\t\t\t   Source=\"{Binding Converter={StaticResource IconConverter}}\"\n"
+"\t\t\t   Width=\"{StaticResource BigControlHeight}\"\n"
+"\t\t\t   Height=\"{StaticResource BigControlHeight}\" />\n"
+"\t\t    <TextBlock Text=\"{Binding LongName}\"\n"
+"\t\t\t       Style=\"{StaticResource zbTitle}\"\n"
+"\t\t\t       Margin=\"10 0 0 0\"\n"
+"\t\t\t       HorizontalAlignment=\"Left\" />\n"
+"\t\t</DockPanel>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\t<ToolBarTray DockPanel.Dock=\"Top\">\n"
+"\t\t    <ctrls:WorkaroundToolBar ItemsSource=\"{Binding Actions}\">\n"
+"\t\t\t<ctrls:WorkaroundToolBar.Resources>\n"
+"\t\t\t    <DataTemplate DataType=\"{x:Type client:ActionViewModel}\">\n"
+"\t\t\t\t<ctrls:CommandButton CommandViewModel=\"{Binding}\"\n"
+"\t\t\t\t\t\t     Style=\"{StaticResource ImageToolbarButton}\" />\n"
+"\t\t\t    </DataTemplate>\n"
+"\t\t\t</ctrls:WorkaroundToolBar.Resources>\n"
+"\t\t    </ctrls:WorkaroundToolBar>\n"
+"\t\t</ToolBarTray>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\t<TabControl Style=\"{StaticResource AreaGroup1TabControl}\"\n"
+"\t\t\t    HorizontalContentAlignment=\"Stretch\">\n"
+"\t\t</TabControl>\n"
+"\t    </DockPanel>\n"
+"\t</UserControl>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "</br> <!-- dang -->\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tnamespace zetbox.Workflow.Client.WPF.View.Workflow\n"
+"\t{\n"
+"\t    using System;\n"
+"\t    using System.Collections.Generic;\n"
+"\t    using System.Linq;\n"
+"\t    using System.Text;\n"
+"\t    using System.Windows;\n"
+"\t    using System.Windows.Controls;\n"
+"\t    using System.Windows.Data;\n"
+"\t    using System.Windows.Documents;\n"
+"\t    using System.Windows.Input;\n"
+"\t    using System.Windows.Media;\n"
+"\t    using System.Windows.Media.Imaging;\n"
+"\t    using System.Windows.Navigation;\n"
+"\t    using System.Windows.Shapes;\n"
+"\t    using Zetbox.Client.GUI;\n"
+"\t    using zetbox.Workflow.Client.ViewModel.Workflow;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t    /// <summary>\n"
+"\t    /// Interaction logic for StateEditor.xaml\n"
+"\t    /// </summary>\n"
+"\t    [ViewDescriptor(Zetbox.App.GUI.Toolkit.WPF)]\n"
+"\t    public partial class StateEditor : UserControl, IHasViewModel<StateViewModel>\n"
+"\t    {\n"
+"\t\tpublic StateEditor()\n"
+"\t\t{\n"
+"\t\t    InitializeComponent();\n"
+"\t\t}\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\tpublic StateViewModel ViewModel\n"
+"\t\t{\n"
+"\t\t    get { return (StateViewModel)DataContext; }\n"
+"\t\t}\n"
+"\t    }\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The XAML is the basic skeleton of a \"normal\" Data Object Editor. Within "
+"the TabControl we will later put our controls to display. In the code behind "
+"of the XAML we simply implement \"IHasViewModel\". This is not necessary "
+"(yet) but you'll love the F12 feature :-)"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Compile, start zetbox and go to \"Module Editor\" -> Assemblies. Select both\n"
+"Assemblies and Hit \"Refresh Typerefs\". Two Workspaces should open. One for the\n"
+"new View and one for the new ViewModel. In one of them, create a new\n"
+"ControlKind and set the same in the other one. **The Control Kind must have\n"
+"\"Zetbox.App.GUI.DataObjectKind\" as parent.**\n"
+msgstr ""
+
+#. type: Plain text
+msgid "[[!img ViewDesc.png]] [[!img ViewModelDesc.png]]"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Now go to the State Class and set the newly created ViewModel for the object."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img ObjectAndViewModel.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"To sum up: Each object is wrapped in a view model - even each property. "
+"Nearly everything. zetbox is following the MVVM Pattern. Each ViewModel is "
+"Toolkit **independent**. It is not responsible for displaying an object. "
+"It's only responsible to create a infrastructure for displaying. A Control "
+"Kind is a description on **how** a view model would like to be displayed. "
+"But it's just a wish. e.g. a Bool Property wish to be displayed as a "
+"checkbox, another bool property could wish to be displayed as a dropdown. "
+"Each Toolkit (WPF, WinForms, ASP.NET, etc.) has views. Each view is telling "
+"zetbox, what kind of view (control) it is. And here is the connection: A "
+"View tells, \"I'm able to display this ControlKind\". If a View is not "
+"present, zetbox will fallback to the next basic view."
+msgstr ""
+
+#. type: Plain text
+msgid "Start server and client and your state object should look like this:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img EmptyStateObject.png]]\n"
+msgstr ""
+
+#. type: Plain text
+msgid "It's empty. We have to continue implementation..."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tpublic DataObjectViewModel InstanceViewModel\n"
+"\t{\n"
+"\t    get\n"
+"\t    {\n"
+"\t        return DataObjectViewModel.Fetch(ViewModelFactory, DataContext, this, State.Instance);\n"
+"\t    }\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tprotected override System.Collections.ObjectModel.ObservableCollection<ICommandViewModel> CreateCommands()\n"
+"\t{\n"
+"\t    var commands = base.CreateCommands();\n"
+"\t    foreach (var action in State.StateDefinition.Actions)\n"
+"\t    {\n"
+"\t        commands.Add(ViewModelFactory.CreateViewModel<SimpleCommandViewModel.Factory>().Invoke(DataContext, this, action.Name, action.Description, () => InvokeAction(action), null, null));\n"
+"\t    }\n"
+"\t    return commands;\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\tpublic void InvokeAction(wf.Action action)\n"
+"\t{\n"
+"\t    // TODO:\n"
+"\t}\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t<UserControl x:Class=\"zetbox.Workflow.Client.WPF.View.Workflow.StateEditor\"\n"
+"\t\t     xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n"
+"\t\t     xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n"
+"\t\t     xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"\n"
+"\t\t     xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\"\n"
+"\t\t     xmlns:ctrls=\"clr-namespace:Zetbox.Client.WPF.CustomControls;assembly=Zetbox.Client.WPF.Toolkit\"\n"
+"\t\t     xmlns:client=\"clr-namespace:Zetbox.Client.Presentables;assembly=Zetbox.Client\"\n"
+"\t\t     mc:Ignorable=\"d\"\n"
+"\t\t     d:DesignHeight=\"300\"\n"
+"\t\t     d:DesignWidth=\"300\">\n"
+"\t    <DockPanel>\n"
+"\t\t<DockPanel DockPanel.Dock=\"Top\"\n"
+"\t\t\t   Margin=\"{StaticResource AreaGroup1Margin}\">\n"
+"\t\t    <Image DockPanel.Dock=\"Left\"\n"
+"\t\t\t   Source=\"{Binding Converter={StaticResource IconConverter}}\"\n"
+"\t\t\t   Width=\"{StaticResource BigControlHeight}\"\n"
+"\t\t\t   Height=\"{StaticResource BigControlHeight}\" />\n"
+"\t\t    <TextBlock Text=\"{Binding LongName}\"\n"
+"\t\t\t       Style=\"{StaticResource zbTitle}\"\n"
+"\t\t\t       Margin=\"10 0 0 0\"\n"
+"\t\t\t       HorizontalAlignment=\"Left\" />\n"
+"\t\t</DockPanel>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\t<ToolBarTray DockPanel.Dock=\"Top\">\n"
+"\t\t    <ctrls:WorkaroundToolBar DockPanel.Dock=\"Top\"\n"
+"\t\t\t\t\t     ItemsSource=\"{Binding Commands}\">\n"
+"\t\t\t<ctrls:WorkaroundToolBar.Resources>\n"
+"\t\t\t    <DataTemplate DataType=\"{x:Type client:CommandViewModel}\">\n"
+"\t\t\t\t<ctrls:CommandButton CommandViewModel=\"{Binding}\"\n"
+"\t\t\t\t\t\t     Style=\"{StaticResource ImageToolbarButton}\" />\n"
+"\t\t\t    </DataTemplate>\n"
+"\t\t\t</ctrls:WorkaroundToolBar.Resources>\n"
+"\t\t    </ctrls:WorkaroundToolBar>\n"
+"\t\t</ToolBarTray>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\t<TabControl DockPanel.Dock=\"Top\"\n"
+"\t\t\t    Style=\"{StaticResource AreaGroup1TabControl}\"\n"
+"\t\t\t    HorizontalContentAlignment=\"Stretch\">\n"
+"\t\t    <TabItem Header=\"Summary\">\n"
+"\t\t\t<StackPanel>\n"
+"\t\t\t    <ctrls:LabeledView DataContext=\"{Binding InstanceViewModel.PropertyModelsByName[Summary]}\" />\n"
+"\t\t\t    <ctrls:LabeledView DataContext=\"{Binding InstanceViewModel.PropertyModelsByName[Message]}\" />\n"
+"\t\t\t</StackPanel>\n"
+"\t\t    </TabItem>\n"
+"\t\t    <TabItem Header=\"Log\">\n"
+"\t\t\t<StackPanel>\n"
+"\t\t\t    <ctrls:LabeledView DataContext=\"{Binding InstanceViewModel.PropertyModelsByName[LogEntries]}\" />\n"
+"\t\t\t    <ctrls:LabeledView DataContext=\"{Binding InstanceViewModel.PropertyModelsByName[States]}\" />\n"
+"\t\t\t</StackPanel>\n"
+"\t\t    </TabItem>\n"
+"\t\t</TabControl>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\t\t<GroupBox Header=\"Payload\">\n"
+"\t\t    <StackPanel>\n"
+"\t\t\t<ctrls:LabeledView DataContext=\"{Binding InstanceViewModel.PropertyModelsByName[Payload]}\" />\n"
+"\t\t\t<ContentPresenter Content=\"{Binding InstanceViewModel.PropertyModelsByName[Payload].ReferencedObject}\"\n"
+"\t\t\t\t\t  ContentTemplateSelector=\"{StaticResource defaultTemplateSelector}\" />\n"
+"\t\t    </StackPanel>\n"
+"\t\t</GroupBox>\n"
+"\t    </DockPanel>\n"
+"\t</UserControl>\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Much better:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img ObjectAndViewModel2.png]]\n"
+msgstr ""

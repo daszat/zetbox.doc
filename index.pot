@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-03 15:17+0300\n"
+"POT-Creation-Date: 2013-10-03 16:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,4 +23,8 @@ msgstr ""
 
 #. type: Plain text
 msgid "Welcome to the zetbox documentation site."
+msgstr ""
+
+#. type: Bullet: '* '
+msgid "How to [[setup a module|HowTos/ModuleSetup]]."
 msgstr ""
