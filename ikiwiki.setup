@@ -33,6 +33,7 @@ url: http://zetbox.at
 add_plugins:
 - goodstuff
 - bootmenu
+- po
 # plugins to disable
 disable_plugins:
 - openid
@@ -361,4 +362,8 @@ bootmenu:
 #bootmenu2:
 #- About
 
-
+po_master_language: en|English
+po_slave_languages:
+- de|Deutsch
+po_link_to: current
+po_translatable_pages: "* and !*/Discussion"
