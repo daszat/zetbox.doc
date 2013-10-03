@@ -32,6 +32,7 @@ url: http://zetbox.at
 # plugins to add to the default configuration
 add_plugins:
 - goodstuff
+- bootmenu
 # plugins to disable
 disable_plugins:
 - openid
@@ -76,7 +77,7 @@ hardlink: 0
 # group for wrappers to run in
 #wrappergroup: ikiwiki
 # extra library and plugin directory
-libdir: ''
+libdir: ./plugins
 # environment variables
 ENV: {}
 # time zone name
@@ -354,3 +355,10 @@ recentchangesnum: 100
 # extra underlay directories to add
 #add_underlays:
 #- /home/david/wiki.underlay
+
+bootmenu:
+- recentchanges
+#bootmenu2:
+#- About
+
+
