@@ -96,7 +96,7 @@ a custom *FullObjectView* created by us.
 
 ### Attributes of a relation
 
-[[!img Rel_Attributes.png]]
+[[!img Rel_Attributes.png class="medium"]]
 
 A *Relation* has these attributes:
 
@@ -144,7 +144,7 @@ ZeroOrMore | Optional List Element (zero or more)
 A *Project* can have zero or more *Tasks*. A *Task* may have one
 *Project*.
 
-[[!img Rel_1_n_Project_Tasks.png]]
+[[!img Rel_1_n_Project_Tasks.png class="medium"]]
 
 The *Relation* object would be:
 
@@ -178,7 +178,7 @@ The *RelationEnd* B object would be:
 A *Project* can have zero or more *ProjectMembers*. A *ProjectMember*
 can be assinged to zero or more *Projects*.
 
-[[!img Rel_n_m_Project_Member.png]]
+[[!img Rel_n_m_Project_Member.png class="medium"]]
 
 The *Relation* object would be:
 
@@ -212,7 +212,7 @@ The *RelationEnd* B object would be:
 A *Relation* must have a *RelationEnd* A. A *RelationEnd* may have a
 AParent *Relation* if it’s a A *ReleationEnd*.
 
-[[!img Rel_Attributes.png]]
+[[!img Rel_Attributes.png class="medium"]]
 
 The *Relation* object would be:
 
