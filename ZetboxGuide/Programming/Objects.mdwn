@@ -17,40 +17,42 @@ CompoundObject | Type for Zetbox Object Classes
 This is the abstract base class for all Zetbox Types. It provides the
 necessary infrastructure to describe a Type.
 
+[[!format cs """
 public interface DataType
+{
+    string Name; 
+	string Description;
 
-string Name; string Description;
+    IList<Property> Properties; 
+	ICollection<Method> Methods;
 
-IList\<Property\> Properties; ICollection\<Method\> Methods;
-ICollection\<MethodInvocation\> MethodInvocations;
+    Icon DefaultIcon; 
+	ICollection<InstanceConstraint> Constraints;
+}
+"""]
 
-Icon DefaultIcon; ICollection\<InstanceConstraint\> Constraints;
-
+[[!table header="no" data="""
 Name
-:   The name of the *DataType*. Note that this name has to be a valid
+|   The name of the *DataType*. Note that this name has to be a valid
     C\# name. A *Constraint* protects this.
 
 Description
-:   Each Type should have a description. This description is used for
+|   Each Type should have a description. This description is used for
     documentation purposes.
 
 Properties
-:   Each Type can have Properties (except *Enumeration*)
+|   Each Type can have Properties (except *Enumeration*)
 
 Methods
-:   Each Type can have Methods (except *Enumeration*)
-
-MethodInvocations
-:   Methods on a *DataType* are invoked by an MethodInvokation. It does
-    not matter on which level of type hierarchy the invokation is
-    defined.
+|   Each Type can have Methods (except *Enumeration*)
 
 DefaultIcon
-:   Each *DataType* can have a default icon
+|   Each *DataType* can have a default icon
 
 Constraints
-:   A *Constraint* checks the validity of an instance. If any constraint
+|   A *Constraint* checks the validity of an instance. If any constraint
     throws an error nothing will be committed.
+"""]]
 
 #### ObjectClass
 
