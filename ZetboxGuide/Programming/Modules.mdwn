@@ -1,0 +1,54 @@
+Modules
+-------
+
+Compound Objects
+----------------
+
+Lets say there is a *PhoneNumber* Compound Object.
+
+class PhoneNumber string CountryCode; string AreaCode; string Number;
+string Extension;
+
+A Person has two phone numbers:
+
+class Person string Name; ... PhoneNumber Tel; PhoneNumber? Fax;
+
+*Tel* is not nullabe, *Fax* is nullable.
+
+### Accessing Compound Objects
+
+-   If a compound object property is not nullable then the content of
+    the property is always a valid reference.
+
+-   If a compound object property is nullable then the content of the
+    property may be null.
+
+-   When a compound object property is set the given compound object
+    will be copied.
+
+Person p; string number;
+
+number = p.Tel.Number; number = p.Fax.Number; // throws
+NullReferenceException if Fax is null
+
+p.Tel.Number = "12345678"; p.Fax.Number = "12345678"; // throws
+NullReferenceException if Fax is null
+
+PhoneNumber n;
+
+n = p.Tel; // returnes a reference of the compound object n.Number =
+"87654321"; // changes p.Tel.Number n = p.Fax; // may be null n.Number =
+"87654321"; // changes p.Fax.Number or throws NullReferenceException if
+Fax is null
+
+p.Fax = p.Tel; // creates a copy of p.Tel p.Fax.Number = "87654321"; //
+changes p.Fax.Number but does not change p.Tel.Number
+
+p.Tel = null; // throws a ArgumentNullException p.Fax = null; // sets
+Fax to null
+
+n = ctx.CreateStruct\<PhoneNumber\>(); // creates a new PhoneNumber
+Struct; n.Number = "12345678"; p.Tel = n; // creates a copy of n
+p.Tel.Number = "18273645"; // changes p.Tel.Number but does not change
+n.Number n.Number = "87654321"; // changes n.Number but does not change
+p.Tel.Number

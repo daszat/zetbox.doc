@@ -1,0 +1,125 @@
+Objects
+-------
+
+### ObjectClass
+
+Zetbox knows four kinds of Types, all derived from *DataType*:
+
+ObjectClass
+:   Type for Zetbox Object Classes
+
+Interface
+:   Type for Zetbox Interfaces
+
+Enumeration
+:   Type for Zetbox Enumerations
+
+CompoundObject
+:   Type for Zetbox Object Classes
+
+#### DataType
+
+This is the abstract base class for all Zetbox Types. It provides the
+necessary infrastructure to describe a Type.
+
+public interface DataType
+
+string Name; string Description;
+
+IList\<Property\> Properties; ICollection\<Method\> Methods;
+ICollection\<MethodInvocation\> MethodInvocations;
+
+Icon DefaultIcon; ICollection\<InstanceConstraint\> Constraints;
+
+Name
+:   The name of the *DataType*. Note that this name has to be a valid
+    C\# name. A *Constraint* protects this.
+
+Description
+:   Each Type should have a description. This description is used for
+    documentation purposes.
+
+Properties
+:   Each Type can have Properties (except *Enumeration*)
+
+Methods
+:   Each Type can have Methods (except *Enumeration*)
+
+MethodInvocations
+:   Methods on a *DataType* are invoked by an MethodInvokation. It does
+    not matter on which level of type hierarchy the invokation is
+    defined.
+
+DefaultIcon
+:   Each *DataType* can have a default icon
+
+Constraints
+:   A *Constraint* checks the validity of an instance. If any constraint
+    throws an error nothing will be committed.
+
+#### ObjectClass
+
+*ObjectClass* is *the* defining class for Zetbox Objects.
+
+public interface ObjectClass : DataType
+
+ObjectClass BaseObjectClass; ICollection\<Interface\>
+ImplementsInterfaces;
+
+string TableName;
+
+bool IsAbstract; bool IsFrozenObject; bool IsSimpleObject;
+
+ViewModelDescriptor DefaultViewModelDescriptor; ControlKind
+RequestedKind;
+
+ICollection\<AccessControl\> AccessControlList;
+
+IsAbstract
+:   
+IsSimpleObject
+:   The *ObjectClass* is marked as a simple, non complex object. Set it
+    to true for all classes that have no inheritance and less enought
+    and simple properties to edit them in grids and/or lists. This will
+    prevent all list view models from opening such an object directly.
+    Also the *ObjectBrowser* will not provide any interface.
+
+[[!inline pages="Relations"]]
+	
+### Properties
+
+public interface Property string Name; ...
+
+Editable in Grid
+:   This is an override for the inline editing behaviour for grid and
+    list controls. The default behaviour is to evaluate if the
+    referenced *ObjectClass* is a simple object or not.
+
+### Additional Metadata
+
+The object model is intended to be very rich and provide the various
+subsystems with meta data directly from the *ObjectClass*.
+
+This section describes the various pieces of this meta data.
+
+#### New related objects
+
+A *CreateRelatedUseCase* describes the use case of creating a new object
+related to the "current" instance. One such use case would be
+e.g. "create a new *Relation* from the current ObjectClass."
+
+Such use cases are described with *CreateRelatedUseCase* objects:
+
+interface CreateRelatedUseCase string Label; Method Action; Relation
+AffectedRelation; // optional
+
+The *Action* will be called when the user requests an execution of this
+use case. This method doesn’t take any parameters and returns the newly
+created object. The infrastructure on the client will cause the returned
+object to be displayed to the user. The business logic should already
+have filled out the property values according to the use case. The name
+of the method should start with "Create".
+
+If the optional *AffectedRelation* is specified, one of its ends it must
+match the *ObjectClass* of the *Method*. This relation can then be used
+to identify controls in the UI where the action can be placed.

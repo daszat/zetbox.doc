@@ -1,0 +1,10 @@
+Internals
+---------
+
+This chapter will describe some internal features of zetbox, necessary for development.
+
+### Concurrency
+
+Zetbox supports optimistic concurrency. It’s enabled, when a
+*ObjectClass* implements the *IChangedBy* interface. The versioning
+column is *ChangedOn*.

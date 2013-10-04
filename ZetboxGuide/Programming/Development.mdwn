@@ -1,0 +1,29 @@
+Core Zetbox Development Environment
+-----------------------------------
+This chapter will describe how to contribute to zetbox basic. A Guide how to develop applications with zetbox will be covered in [[UsingZetBox]].
+
+### Preparing a clean local build
+
+First, it is necessary to have a clean build environment. Use *subst* to
+create a drive *P:* where your checkout resides in a directory called
+*Zetbox*.
+
+The *!FullReset.cmd* will bring the database and the bootstrapping code
+up to the current *Database.xml*’s content.
+
+Now the environment is ready for programming.
+
+### Merging local and remote changes
+
+When the subversion repository has changed the *Database.xml* while
+local changes were made to the schema, it is necessary to merge them
+before comitting.
+
+After fetching and merging the update from the subversion repository,
+the local *Database.xml* has changes which are not yet in the database.
+Running *!DeployAll.cmd* updadates the SQL-schema and produces a new set
+of generated assemblies in the *CodeGenPath*. After testing that the
+merge was successful, use *GetCodeGen.cmd* to update the working
+directory with the newly generated bootstrapping code.
+
+Now the working directory is ready for check in.

@@ -1,5 +1,4 @@
-Relation
---------
+### Relation
 
 A *Relation* defines the relationship between two Objects. Every Object
 can have zero or more *Relations*.
