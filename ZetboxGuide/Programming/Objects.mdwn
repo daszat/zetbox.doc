@@ -77,7 +77,7 @@ An example of a *Relation* is the relation between *Project* and
 *Tasks*. One *Project* can have zero or more *Tasks*. One *Tasks* must
 have a *Project*.
 
-![image](Rel_1_n_Project_Tasks.png)
+[[!img Rel_1_n_Project_Tasks.png]]
 
 ### Modeling a relation
 
@@ -92,11 +92,11 @@ two *RelationEnd* objects. This can be done by
 Relations are edited in the *Relation Editor*. The *Relation Editor* is
 a custom *FullObjectView* created by us.
 
-![image](ScreenShot_Rel_Project_Task.png)
+[[!img ScreenShot_Rel_Project_Task.png]]
 
 ### Attributes of a relation
 
-![image](Rel_Attributes.png)
+[[!img Rel_Attributes.png]]
 
 A *Relation* has these attributes:
 
@@ -144,7 +144,7 @@ ZeroOrMore | Optional List Element (zero or more)
 A *Project* can have zero or more *Tasks*. A *Task* may have one
 *Project*.
 
-![image](Rel_1_n_Project_Tasks.png)
+[[!img Rel_1_n_Project_Tasks.png]]
 
 The *Relation* object would be:
 
@@ -171,14 +171,14 @@ The *RelationEnd* B object would be:
     RoleName = Tasks
     Type = Project instance of type ObjectClass
 
-![image](ScreenShot_Rel_Project_Task.png)
+[[!img ScreenShot_Rel_Project_Task.png]]
 
 ### n:m Relation
 
 A *Project* can have zero or more *ProjectMembers*. A *ProjectMember*
 can be assinged to zero or more *Projects*.
 
-![image](Rel_n_m_Project_Member.png)
+[[!img Rel_n_m_Project_Member.png]]
 
 The *Relation* object would be:
 
@@ -205,14 +205,14 @@ The *RelationEnd* B object would be:
     RoleName = Member
     Type = Project instance of type ObjectClass
 
-![image](ScreenShot_Rel_Project_ProjectMember.png)
+[[!img ScreenShot_Rel_Project_ProjectMember.png]]
 
 ### 1:1 Relation
 
 A *Relation* must have a *RelationEnd* A. A *RelationEnd* may have a
 AParent *Relation* if it’s a A *ReleationEnd*.
 
-![image](Rel_Attributes.png)
+[[!img Rel_Attributes.png]]
 
 The *Relation* object would be:
 
@@ -239,7 +239,7 @@ The *RelationEnd* B object would be:
     RoleName = A
     Type = Relation instance of type ObjectClass
 
-![image](ScreenShot_Rel_Project_ProjectMember.png)
+[[!img ScreenShot_Rel_Project_ProjectMember.png]]
 
 	
 ### Properties
