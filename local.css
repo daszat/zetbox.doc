@@ -90,3 +90,8 @@ img.small {
     width: 25%;
 	height: auto;
 }
+
+/* extend the note template */
+.notebox {
+	background: rgb(255, 255, 230);
+}

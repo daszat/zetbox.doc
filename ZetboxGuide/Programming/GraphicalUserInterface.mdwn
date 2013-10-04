@@ -291,9 +291,11 @@ Implementation
 
 ### Implementing a ViewModel
 [[!template  id=note text="""TODO!"""]]
+Describe the implementation of a ViewModel
 
 ### Implementing a WPF View
 [[!template  id=note text="""TODO!"""]]
+Describe the implementation of a View
 
 States of an Input Control
 --------------------------
