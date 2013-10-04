@@ -5,17 +5,12 @@ Objects
 
 Zetbox knows four kinds of Types, all derived from *DataType*:
 
-ObjectClass
-:   Type for Zetbox Object Classes
-
-Interface
-:   Type for Zetbox Interfaces
-
-Enumeration
-:   Type for Zetbox Enumerations
-
-CompoundObject
-:   Type for Zetbox Object Classes
+[[!table  data="""
+ObjectClass    | Type for Zetbox Object Classes
+Interface      | Type for Zetbox Interfaces
+Enumeration    | Type for Zetbox Enumerations
+CompoundObject | Type for Zetbox Object Classes
+"""]]
 
 #### DataType
 
