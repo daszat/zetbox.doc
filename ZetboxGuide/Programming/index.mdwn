@@ -6,6 +6,7 @@ programmed and customized.
 
 * [[Objects]]
 * [[Modules]]
+* [[CompoundObjects]]
 * [[GraphicalUserInterface]]
 * [[EnhancingZetbox]]
 * [[Internals]]
