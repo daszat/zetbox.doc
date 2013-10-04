@@ -151,7 +151,7 @@ public interface IViewModelFactory
 	void OnIMultipleInstancesManagerCreated(Zetbox.API.IZetboxContext ctx, IMultipleInstancesManager workspace); 
 	void OnIMultipleInstancesManagerDisposed(Zetbox.API.IZetboxContext ctx, IMultipleInstancesManager workspace);
 }
-""""]]
+"""]]
 	
 *ViewModel*s can be created directly if the requested *ViewModel* is
 known. Some *ObjectClasses* (ObjectClass, Property, Method, Parameter,
@@ -312,6 +312,7 @@ MC2 | The Model is *changed* by a third party. The user is currently editing the
 MC3 | The Model is *changed* by the ViewModel. The View should be signalled to update its display to the new Value. Since this is in reaction to user input, this might not display a canonicalized value
 PI  | The user enters *partial input*. The ViewModel will store this until the user completes or aborts[^3] her edit.
 VI  | The user enters *complete input*. The ViewModel accepts the input as valid and will proceed to write it back to the Model.
+"""]]
 """]]
 	
 [^1]: usually the keyboard focus
