@@ -360,6 +360,8 @@ recentchangesnum: 100
 #- /home/david/wiki.underlay
 
 bootmenu:
+- ZetboxGuide
+- HowTos
 - recentchanges
 #bootmenu2:
 #- About

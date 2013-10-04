@@ -84,7 +84,7 @@ IsSimpleObject
     prevent all list view models from opening such an object directly.
     Also the *ObjectBrowser* will not provide any interface.
 
-[[!inline pages="Relations"]]
+[[!inline pages="page(Relations)"]]
 	
 ### Properties
 
