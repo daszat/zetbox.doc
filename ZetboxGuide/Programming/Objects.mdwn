@@ -96,7 +96,7 @@ a custom *FullObjectView* created by us.
 
 ### Attributes of a relation
 
-![image size=400](Rel_Attributes.png)
+![image](Rel_Attributes.png)
 
 A *Relation* has these attributes:
 
@@ -244,38 +244,16 @@ The *RelationEnd* B object would be:
 	
 ### Properties
 
-public interface Property string Name; ...
+[[!format cs """
+public interface Property 
+{
+    string Name;
+	
+	bool EditableInGrid;
+}
+"""]]
 
-Editable in Grid
-:   This is an override for the inline editing behaviour for grid and
-    list controls. The default behaviour is to evaluate if the
-    referenced *ObjectClass* is a simple object or not.
+[[!table header="no" data="""
+Editable in Grid | This is an override for the inline editing behaviour for grid and list controls. The default behaviour is to evaluate if the referenced *ObjectClass* is a simple object or not.
+"""]]
 
-### Additional Metadata
-
-The object model is intended to be very rich and provide the various
-subsystems with meta data directly from the *ObjectClass*.
-
-This section describes the various pieces of this meta data.
-
-#### New related objects
-
-A *CreateRelatedUseCase* describes the use case of creating a new object
-related to the "current" instance. One such use case would be
-e.g. "create a new *Relation* from the current ObjectClass."
-
-Such use cases are described with *CreateRelatedUseCase* objects:
-
-interface CreateRelatedUseCase string Label; Method Action; Relation
-AffectedRelation; // optional
-
-The *Action* will be called when the user requests an execution of this
-use case. This method doesn’t take any parameters and returns the newly
-created object. The infrastructure on the client will cause the returned
-object to be displayed to the user. The business logic should already
-have filled out the property values according to the use case. The name
-of the method should start with "Create".
-
-If the optional *AffectedRelation* is specified, one of its ends it must
-match the *ObjectClass* of the *Method*. This relation can then be used
-to identify controls in the UI where the action can be placed.
