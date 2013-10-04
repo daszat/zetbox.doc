@@ -90,6 +90,8 @@ IsSimpleObject
     prevent all list view models from opening such an object directly.
     Also the *ObjectBrowser* will not provide any interface.
 
+* [[Relations]]
+	
 ### Properties
 
 public interface Property string Name; ...
@@ -187,6 +189,8 @@ Enhancing Zetbox’s inner workings
 ---------------------------------
 
 ### Database Providers
+
+[[GraphicalUserInterface]]
 
 Concurrency
 -----------

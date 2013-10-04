@@ -344,6 +344,8 @@ Implementation
 
 ### Implementing a WPF View
 
+* [[InputStates]]
+
 Asynchronous Loading
 --------------------
 
