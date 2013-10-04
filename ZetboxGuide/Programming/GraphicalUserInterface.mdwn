@@ -33,13 +33,13 @@ enables the infrastructure to choose another view if a certian
 Finally, *Views* (editors and displays) are the actual components taking
 care of showing content to the user and converting the users keypresses
 and clicks into calls on the view models interface. Views are
-toolkit[^1] specific and reside in the toolkit’s respective assembly.
+toolkit[^4] specific and reside in the toolkit’s respective assembly.
 
 This architecture decouples the actual functionality of the Model and
 the View Model completly from the inner workings of a toolkit and
 thereby maximise the reuse of code between different clients.
 
-[[!img GUI_Relation_MVVM.png class="medium"]]
+[[!img GUI_Relation_MVVM.png class="small"]]
 
 Plumbing
 --------
@@ -175,19 +175,25 @@ ObjectReferenceProperty | is displayed by a ObjectReferenceViewModel, ObjectColl
 Create a specific *ViewModel* by calling:
 
 [[!format cs """
-mdlFactory.CreateViewModel<WorkspaceViewModel.Factory>().Invoke(ctx);
+mdlFactory
+    .CreateViewModel<WorkspaceViewModel.Factory>()
+	.Invoke(ctx);
 """]]
 
 Create a *ViewModel* for a *Property* by calling:
 
 [[!format cs """
-ViewModelFactory.CreateViewModel<BaseValueViewModel.Factory>(prop).Invoke(DataContext, prop.GetValueModel(Object));
+ViewModelFactory
+    .CreateViewModel<BaseValueViewModel.Factory>(prop)
+	.Invoke(DataContext, prop.GetValueModel(Object));
 """]]
 
 Create a *ViewModel* for a *IDataObject* by calling:
 
 [[!format cs """
-ViewModelFactory.CreateViewModel<DataObjectViewModel.Factory>(obj).Invoke(DataContext, obj);
+ViewModelFactory
+    .CreateViewModel<DataObjectViewModel.Factory>(obj)
+	.Invoke(DataContext, obj);
 """]]
 
 The *ViewModelFactory* will look up the *IDataObject*s type and tries to
@@ -210,28 +216,36 @@ PropertyModelsByName            | Dictionary of *BaseValueViewModels* with the p
 OnPropertyModelsByNameCreated() | Called after the *PropertyModelsByName* dictionary has been created.
 PropertyGroups                  | A read only collection of property groups. See *CreatePropertyGroups* for more information.
 CreatePropertyGroups            | Property groups are created based on the properties summary tags. Due to the fact, that properties can have more than one summary tag, properties may appear in more than one property group. Properties with no summary tags appears in the “Uncategorised” group. Note, that currently summary tags may not contain spaces as the space is defined as the seperator. You can override this method to add custom property groups.
+PropertyGroupsByName            | Dictionary of *PropertyGroups* with the group name as the key.
+IsReadOnly                      | Specifies, that the underlying object should be read only. This sets every property read only.
 """]]
-	
+
+Example for CreatePropertyGroups override:
 [[!format cs """
 protected override List<PropertyGroupViewModel> CreatePropertyGroups()
 {
     var result = base.CreatePropertyGroups();
 
-    var relListMdl = ViewModelFactory.CreateViewModel<InstanceListViewModel.Factory>().Invoke(DataContext, () => DataContext, typeof(Relation).GetObjectClass(FrozenContext), () => DataContext.GetQuery<Relation>() );
+    var relListMdl = ViewModelFactory
+	                     .CreateViewModel<InstanceListViewModel.Factory>()
+						 .Invoke(DataContext, 
+						         () => DataContext, 
+								 typeof(Relation).GetObjectClass(FrozenContext), 
+								 () => DataContext.GetQuery<Relation>());
 
-    var lblMdl = ViewModelFactory.CreateViewModel<LabeledViewContainerViewModel.Factory>().Invoke(DataContext, "Relations", "", relListMdl); 
-	var propGrpMdl = ViewModelFactory.CreateViewModel<SinglePropertyGroupViewModel.Factory>().Invoke(DataContext, "Relations", new ViewModel[] lblMdl ); 
+    var lblMdl = ViewModelFactory
+	                 .CreateViewModel<LabeledViewContainerViewModel.Factory>()
+					 .Invoke(DataContext, "Relations", "", relListMdl); 
+	var propGrpMdl = ViewModelFactory
+	                     .CreateViewModel<SinglePropertyGroupViewModel.Factory>()
+						 .Invoke(DataContext, "Relations", new ViewModel[] { lblMdl }); 
 	result.Add(propGrpMdl);
     return result;
 }
 """]]
 
-[[!table header="no" data="""
-PropertyGroupsByName | Dictionary of *PropertyGroups* with the group name as the key.
-IsReadOnly           | Specifies, that the underlying object should be read only. This sets every property read only.
-"""]]
-
 ### ValueViewModel
+TODO!
 
 ### Highlighting
 
@@ -276,8 +290,10 @@ Implementation
 --------------
 
 ### Implementing a ViewModel
+TODO!
 
 ### Implementing a WPF View
+TODO!
 
 States of an Input Control
 --------------------------
@@ -313,17 +329,7 @@ MC3 | The Model is *changed* by the ViewModel. The View should be signalled to u
 PI  | The user enters *partial input*. The ViewModel will store this until the user completes or aborts[^3] her edit.
 VI  | The user enters *complete input*. The ViewModel accepts the input as valid and will proceed to write it back to the Model.
 """]]
-"""]]
 	
-[^1]: usually the keyboard focus
-
-[^2]: If the user has not modified the Value, this signalling could be
-    optimized away. Since the canonical representation should always be
-    on display unless the user is currently editing this is not deemed
-    an issue at this time.
-
-[^3]: Canceling is currently not supported
-
 
 Asynchronous Loading
 --------------------
@@ -357,7 +363,7 @@ triggered, which in turn may cause a PropertyChanged event a little bit
 later.
 
 In the case of time-dependent values, the ViewModel has to take care to
-establish a periodic refresh timer[^2] which triggers PropertyChanged
+establish a periodic refresh timer[^5] which triggers PropertyChanged
 events when new values arrive.
 
 Similarily, methods called on the ViewModel do not actually do their
@@ -382,8 +388,8 @@ intricacies of synchronizing and delegating across thread boundaries.
 Special needs like callback parameters and time-dependent values have to
 be communicated via special Attributes.
 
-[^1]: Toolkits are GUI libraries like WPF, GTK\# or Windows Forms but
-    can also be implemented by more complex providers such as ASP.NET.
-
-[^2]: Todo: such a timer should be provided by the infrastructure for
-    platform dependent refreshing
+[^1]: usually the keyboard focus
+[^2]: If the user has not modified the Value, this signalling could be optimized away. Since the canonical representation should always be on display unless the user is currently editing this is not deemed an issue at this time.
+[^3]: Canceling is currently not supported
+[^4]: Toolkits are GUI libraries like WPF, GTK\# or Windows Forms but can also be implemented by more complex providers such as ASP.NET.
+[^5]: Todo: such a timer should be provided by the infrastructure for platform dependent refreshing
