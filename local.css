@@ -61,3 +61,11 @@ footer {
     background-color: #003c64;
     border-right: 1px solid #eab92d;
 }
+
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+	background-color: #003c64;
+}
+	
+.navbar .nav > li > a {
+	color: #f9ed9d;
+}	
