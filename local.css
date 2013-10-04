@@ -94,4 +94,5 @@ img.small {
 /* extend the note template */
 .notebox {
 	background: rgb(255, 255, 230);
+	margin-left: -32%;
 }

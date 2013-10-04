@@ -30,10 +30,11 @@ provide any services. *ControlKinds* can be put into a hierarchy. That
 enables the infrastructure to choose another view if a certian
 *ControlKind* is not implemented in a Toolkit.
 
+[[!template  id=note text="""Toolkits are GUI libraries like WPF, GTK\# or Windows Forms but can also be implemented by more complex providers such as ASP.NET."""]]
 Finally, *Views* (editors and displays) are the actual components taking
 care of showing content to the user and converting the users keypresses
 and clicks into calls on the view models interface. Views are
-toolkit[^4] specific and reside in the toolkit’s respective assembly.
+toolkit specific and reside in the toolkit’s respective assembly.
 
 This architecture decouples the actual functionality of the Model and
 the View Model completly from the inner workings of a toolkit and
@@ -304,8 +305,9 @@ States of an Input Control
 state diagram explains the possible basic states of the underlying
 *InputViewModel*:
 
+[[!template  id=note text="""usually the keyboard focus"""]]
 An InputViewModel has two distinct dimensions along which it modifies
-its behaviour. One is whether or not it currently has the focus[^1]. The
+its behaviour. One is whether or not it currently has the focus. The
 other dimension is whether or not there are outstanding (partial)
 modifications to the Value.
 
@@ -321,14 +323,15 @@ WM  | The ViewModel is currently *writing to the Model*. Change notifications fr
 There are several events that determine the actual state of the
 InputViewModel.
 
+[[!template  id=note text="""If the user has not modified the Value, this signalling could be optimized away. Since the canonical representation should always be on display unless the user is currently editing this is not deemed an issue at this time."""]]
 [[!table header="no" data="""
 F   | The ViewModel receives *Focus*.
-B1  | The ViewModel looses *Focus*. Since this signals the user loosing interest in further editing this Value, a change in the FormattedValue is signalled[^2] to update the View to the canonical representation of the Value.
+B1  | The ViewModel looses *Focus*. Since this signals the user loosing interest in further editing this Value, a change in the FormattedValue is signalled to update the View to the canonical representation of the Value.
 B2  | The ViewModel looses *Focus*. Since the user has still a pending partial input, the ViewModel expects the user to return and continue editing.
 MC1 | The Model is *changed* by a third party. This might be due to changes from the business logic or via other ViewModels. In any case the View should be signalled to update its display to the new Value.
 MC2 | The Model is *changed* by a third party. The user is currently editing the Value, so changes there should be ignored. In most cases this constitutes a programming error, as no code should try to change values while the user is editing them.
 MC3 | The Model is *changed* by the ViewModel. The View should be signalled to update its display to the new Value. Since this is in reaction to user input, this might not display a canonicalized value
-PI  | The user enters *partial input*. The ViewModel will store this until the user completes or aborts[^3] her edit.
+PI  | [[!template  id=note text="""Canceling is currently not supported"""]] The user enters *partial input*. The ViewModel will store this until the user completes or aborts her edit.
 VI  | The user enters *complete input*. The ViewModel accepts the input as valid and will proceed to write it back to the Model.
 """]]
 	
@@ -362,8 +365,9 @@ cached value is returned immediately and optionally a refresh is
 triggered, which in turn may cause a PropertyChanged event a little bit
 later.
 
+[[!template  id=note text="""Todo: such a timer should be provided by the infrastructure for platform dependent refreshing"""]]
 In the case of time-dependent values, the ViewModel has to take care to
-establish a periodic refresh timer[^5] which triggers PropertyChanged
+establish a periodic refresh timer which triggers PropertyChanged
 events when new values arrive.
 
 Similarily, methods called on the ViewModel do not actually do their
@@ -387,9 +391,3 @@ should be automatically generated, freeing the ViewModel from the
 intricacies of synchronizing and delegating across thread boundaries.
 Special needs like callback parameters and time-dependent values have to
 be communicated via special Attributes.
-
-[^1]: usually the keyboard focus
-[^2]: If the user has not modified the Value, this signalling could be optimized away. Since the canonical representation should always be on display unless the user is currently editing this is not deemed an issue at this time.
-[^3]: Canceling is currently not supported
-[^4]: Toolkits are GUI libraries like WPF, GTK\# or Windows Forms but can also be implemented by more complex providers such as ASP.NET.
-[^5]: Todo: such a timer should be provided by the infrastructure for platform dependent refreshing
