@@ -1,0 +1,402 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-04 09:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Title =
+#, no-wrap
+msgid "[Deployment]Deployment\n"
+msgstr ""
+
+#. type: Plain text
+msgid "This section describes the possible deployment strategies."
+msgstr ""
+
+#. type: Plain text
+msgid "this section is a subject to change"
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Continuous Integration Server\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The *Continuous Integration Server* does a publish in a directory "
+"structure. This directory structure is transformed by a *fetch* script into "
+"the designated directory structure."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"It’s not recommended to use the *Continuous Integration Servers* structure "
+"directly. The next section will discuss the fetching process and the "
+"designated directory structure."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Fetching and Destination Directory Structure\n"
+msgstr ""
+
+#. type: Plain text
+msgid "The fetching script is responsible for"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Creating the directory structure"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Fetching all Assemblies and putting them in the right destination directory"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Copying all app configuration files to the right directories"
+msgstr ""
+
+#. type: Plain text
+msgid "The directory structure on the deployment server should look like this:"
+msgstr ""
+
+#. type: Title ###
+#:  
+#, no-wrap
+msgid "AppConfigs"
+msgstr ""
+
+#. type: Title ###
+#:   
+#, no-wrap
+msgid "bin"
+msgstr ""
+
+#. type: Bullet: '    -   '
+#:  
+msgid "Bootstrapper"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:  
+msgid "Client"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:      
+msgid "App.Zetbox"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:      
+msgid "Core"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:      
+msgid "Core.Generated"
+msgstr ""
+
+#. type: Bullet: '            -   '
+msgid "WPF"
+msgstr ""
+
+#. type: Bullet: '            -   '
+msgid "WinForms"
+msgstr ""
+
+#. type: Bullet: '    -   '
+#:   
+msgid "Common"
+msgstr ""
+
+#. type: Bullet: '        -   '
+msgid "Zetbox.Client.WPF.exe"
+msgstr ""
+
+#. type: Bullet: '        -   '
+msgid "Zetbox.Client.WPF.exe.config"
+msgstr ""
+
+#. type: Bullet: '        -   '
+msgid "Zetbox.Client.Forms.exe"
+msgstr ""
+
+#. type: Bullet: '        -   '
+msgid "Zetbox.Client.Forms.exe.config"
+msgstr ""
+
+#. type: Bullet: '    -   '
+#:   
+msgid "Server"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:  
+msgid "EF"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:  
+msgid "EF.Generated"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:  
+msgid "NH"
+msgstr ""
+
+#. type: Bullet: '        -   '
+#:  
+msgid "NH.Generated"
+msgstr ""
+
+#. type: Bullet: '        -   '
+msgid "Zetbox.Server.Service.exe"
+msgstr ""
+
+#. type: Bullet: '        -   '
+msgid "Zetbox.Server.Service.exe.config"
+msgstr ""
+
+#. type: Title ###
+#:  
+#, no-wrap
+msgid "Configs"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "DocumentStore"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "inetpub"
+msgstr ""
+
+#. type: Bullet: '    -   '
+msgid "App\\_Data"
+msgstr ""
+
+#. type: Bullet: '    -   '
+msgid "App\\_GlobalResources"
+msgstr ""
+
+#. type: Bullet: '    -   '
+msgid "App\\_Themes"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "logs"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Packages"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "deploy.ps1"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "fetch.ps1"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Root Directory"
+msgstr ""
+
+#. type: Plain text
+msgid "The deployment script, responsible for upgrading the servers database"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The fetch script, responsible for creating the directory structure and "
+"fetching all assemblies and configuration templates"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This directory contains all app configuration files needed by the executing "
+"assemblies. E.g. in the *Zetbox.Server.Service.exe.config* all WCF Service "
+"stuff can be configured. In *Zetbox.Client.WPF.exe.config* all WCF Proxy "
+"stuff can be configured."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The fetch script will copy those configuration files into the desired "
+"directories, right beside their executalables."
+msgstr ""
+
+#. type: Plain text
+msgid "So this is the place where all app specific configuration has to be defined."
+msgstr ""
+
+#. type: Plain text
+msgid "Besides WCF stuff, those configuration can be also found in those files:"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "log4net"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "WCF"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Assembly Bindings"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Database provider registration"
+msgstr ""
+
+#. type: Plain text
+msgid "The web.config is not located here, but this may change in the future"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This directory contains all Zetbox configuration files. They are located by "
+"the executalable by probing"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "the given command line parameter"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "then the *zenv* environment variable plus executalable name"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid ""
+"then each directory up to the *Configs* directory, still with the "
+"executalable name"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "at the end by looking for *DefaultConfig.xml* in the configs directory"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The bin directory contains all assemblies used by Zetbox, divided by theire "
+"use (Bootstrapper, Client or Server). The *Client* and *Server* directories "
+"contains sub directories to split Client/Server and Common parts. Those "
+"directories have for each Application (=Zetbox Module) and Modules (not "
+"Zetbox Modules!) a individual sub directory."
+msgstr ""
+
+#. type: Plain text
+msgid "The naming of Application (=Zetbox Module) should be:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "App.\\<ModuleName\\>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*Core* contains all core assemblies like Zetbox.API and all other\n"
+"assemblies that are referenced by default (log4net e.g.).\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*Core.Generated* contains all genereated code. Code Generation is done\n"
+"by the *Continuous Integration Server* so those assemblies will be\n"
+"copied by the fetch script.\n"
+msgstr ""
+
+#. type: Plain text
+msgid "This is a topic of discussion"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*Bootstrapper* contains only one executalable. The Boostrapper itself\n"
+"which is downloading the whole client application with its configuration\n"
+"from an HTTP Server via REST.\n"
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Deployment on a Linux Server\n"
+msgstr ""
+
+#. type: Plain text
+msgid "On Linux the following packages are needed:"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Mono 2.10 - master"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Apache 2"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "mod\\_mono"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "many other…"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Apache configuration"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "Install Apache"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "install mod\\_mono"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "turn off KeepAlive - the .NET HTTP Client won’t talk to Apache correctly"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "enable/configure your security model"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "ensure that the *TrustedBasicAuthenticationModule* is enabled."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The Apache Server is responsible for authentication. The ZToolbox server "
+"trusts Apache and uses the passed identity (through the HTTP Header)."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Deployment on a Windows Server\n"
+msgstr ""

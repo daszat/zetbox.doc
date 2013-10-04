@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-04 09:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Plain text
+msgid ""
+"at (9.500000,3.490000)B/UV; at (9.500000,6.490000)F/UV; at "
+"(9.500000,9.490000)F/PUI; at (9.500000,12.557500)F/WM; at "
+"(17.500000,2.490000)IF/PUI; at (17.500000,6.490000)IF/WM; at "
+"(15.500000,9.490000)B/PUI; at (21.000000,2.000000)MC2,; at "
+"(21.000000,2.800000)PI; at (17.600000,4.200000)VI; at "
+"(14.000000,2.600000)PI; at (14.600000,4.000000)MC3; at "
+"(13.200000,4.600000)VI; at (12.600000,8.200000)F; at "
+"(12.400000,10.800000)B2; at (6.600000,9.400000)PI; at (9.600000,7.800000)PI; "
+"at (12.600000,6.400000)MC2; at (9.600000,10.800000)VI; at "
+"(4.600000,9.200000)VI; at (3.000000,8.000000)MC3; at (8.800000,5.000000)F; "
+"at (9.600000,5.000000)B1; at (5.200000,3.400000)MC1; at "
+"(18.600000,9.400000)MC2; at (11.600000,9.600000)MC2;"
+msgstr ""

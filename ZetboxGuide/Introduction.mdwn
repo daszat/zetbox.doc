@@ -1,0 +1,17 @@
+Introduction
+============
+
+Zetbox is a application framework to provide the complete process from
+defining data structures, designing data access and transfer objects,
+designing servers and GUIs and the necessary parts to make everything
+work together.
+
+Zetbox Basic
+------------
+
+Zetbox Basic provides the folowing services:
+
+All meta informations are defined by the module editor
+
+The Database provider manages database access. Currently SQL Server 2008
+& PosgreSQL are supported.

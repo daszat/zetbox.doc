@@ -1,0 +1,456 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-04 09:46+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Title =
+#, no-wrap
+msgid "Programming\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This chapter describes the various ways and pieces the Zetbox system is "
+"programmed and customized."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Objects\n"
+msgstr ""
+
+#. type: Title ####
+#:  
+#, no-wrap
+msgid "ObjectClass"
+msgstr ""
+
+#. type: Plain text
+msgid "Zetbox knows four kinds of Types, all derived from *DataType*:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ObjectClass\n"
+":   Type for Zetbox Object Classes\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Interface\n"
+":   Type for Zetbox Interfaces\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Enumeration\n"
+":   Type for Zetbox Enumerations\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"CompoundObject\n"
+":   Type for Zetbox Object Classes\n"
+msgstr ""
+
+#. type: Title ####
+#, no-wrap
+msgid "DataType"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This is the abstract base class for all Zetbox Types. It provides the "
+"necessary infrastructure to describe a Type."
+msgstr ""
+
+#. type: Plain text
+msgid "public interface DataType"
+msgstr ""
+
+#. type: Plain text
+msgid "string Name; string Description;"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"IList\\<Property\\> Properties; ICollection\\<Method\\> Methods;\n"
+"ICollection\\<MethodInvocation\\> MethodInvocations;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "Icon DefaultIcon; ICollection\\<InstanceConstraint\\> Constraints;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Name\n"
+":   The name of the *DataType*. Note that this name has to be a valid\n"
+"    C\\# name. A *Constraint* protects this.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Description\n"
+":   Each Type should have a description. This description is used for\n"
+"    documentation purposes.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Properties\n"
+":   Each Type can have Properties (except *Enumeration*)\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Methods\n"
+":   Each Type can have Methods (except *Enumeration*)\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"MethodInvocations\n"
+":   Methods on a *DataType* are invoked by an MethodInvokation. It does\n"
+"    not matter on which level of type hierarchy the invokation is\n"
+"    defined.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"DefaultIcon\n"
+":   Each *DataType* can have a default icon\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Constraints\n"
+":   A *Constraint* checks the validity of an instance. If any constraint\n"
+"    throws an error nothing will be committed.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "*ObjectClass* is *the* defining class for Zetbox Objects.\n"
+msgstr ""
+
+#. type: Plain text
+msgid "public interface ObjectClass : DataType"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ObjectClass BaseObjectClass; ICollection\\<Interface\\>\n"
+"ImplementsInterfaces;\n"
+msgstr ""
+
+#. type: Plain text
+msgid "string TableName;"
+msgstr ""
+
+#. type: Plain text
+msgid "bool IsAbstract; bool IsFrozenObject; bool IsSimpleObject;"
+msgstr ""
+
+#. type: Plain text
+msgid "ViewModelDescriptor DefaultViewModelDescriptor; ControlKind RequestedKind;"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "ICollection\\<AccessControl\\> AccessControlList;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"IsAbstract\n"
+":   \n"
+"IsSimpleObject\n"
+":   The *ObjectClass* is marked as a simple, non complex object. Set it\n"
+"    to true for all classes that have no inheritance and less enought\n"
+"    and simple properties to edit them in grids and/or lists. This will\n"
+"    prevent all list view models from opening such an object directly.\n"
+"    Also the *ObjectBrowser* will not provide any interface.\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Properties"
+msgstr ""
+
+#. type: Plain text
+msgid "public interface Property string Name; ..."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Editable in Grid\n"
+":   This is an override for the inline editing behaviour for grid and\n"
+"    list controls. The default behaviour is to evaluate if the\n"
+"    referenced *ObjectClass* is a simple object or not.\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Additional Metadata"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The object model is intended to be very rich and provide the various "
+"subsystems with meta data directly from the *ObjectClass*."
+msgstr ""
+
+#. type: Plain text
+msgid "This section describes the various pieces of this meta data."
+msgstr ""
+
+#. type: Title ####
+#, no-wrap
+msgid "New related objects"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A *CreateRelatedUseCase* describes the use case of creating a new object "
+"related to the \"current\" instance. One such use case would be "
+"e.g. \"create a new *Relation* from the current ObjectClass.\""
+msgstr ""
+
+#. type: Plain text
+msgid "Such use cases are described with *CreateRelatedUseCase* objects:"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"interface CreateRelatedUseCase string Label; Method Action; Relation "
+"AffectedRelation; // optional"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The *Action* will be called when the user requests an execution of this use "
+"case. This method doesn’t take any parameters and returns the newly created "
+"object. The infrastructure on the client will cause the returned object to "
+"be displayed to the user. The business logic should already have filled out "
+"the property values according to the use case. The name of the method should "
+"start with \"Create\"."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"If the optional *AffectedRelation* is specified, one of its ends it must "
+"match the *ObjectClass* of the *Method*. This relation can then be used to "
+"identify controls in the UI where the action can be placed."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Modules\n"
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Compound Objects\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Lets say there is a *PhoneNumber* Compound Object."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"class PhoneNumber string CountryCode; string AreaCode; string Number; string "
+"Extension;"
+msgstr ""
+
+#. type: Plain text
+msgid "A Person has two phone numbers:"
+msgstr ""
+
+#. type: Plain text
+msgid "class Person string Name; ... PhoneNumber Tel; PhoneNumber? Fax;"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "*Tel* is not nullabe, *Fax* is nullable.\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Accessing Compound Objects"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid ""
+"If a compound object property is not nullable then the content of the "
+"property is always a valid reference."
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid ""
+"If a compound object property is nullable then the content of the property "
+"may be null."
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid ""
+"When a compound object property is set the given compound object will be "
+"copied."
+msgstr ""
+
+#. type: Plain text
+msgid "Person p; string number;"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"number = p.Tel.Number; number = p.Fax.Number; // throws "
+"NullReferenceException if Fax is null"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"p.Tel.Number = \"12345678\"; p.Fax.Number = \"12345678\"; // throws "
+"NullReferenceException if Fax is null"
+msgstr ""
+
+#. type: Plain text
+msgid "PhoneNumber n;"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"n = p.Tel; // returnes a reference of the compound object n.Number = "
+"\"87654321\"; // changes p.Tel.Number n = p.Fax; // may be null n.Number = "
+"\"87654321\"; // changes p.Fax.Number or throws NullReferenceException if "
+"Fax is null"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"p.Fax = p.Tel; // creates a copy of p.Tel p.Fax.Number = \"87654321\"; // "
+"changes p.Fax.Number but does not change p.Tel.Number"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"p.Tel = null; // throws a ArgumentNullException p.Fax = null; // sets Fax to "
+"null"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"n = ctx.CreateStruct\\<PhoneNumber\\>(); // creates a new PhoneNumber\n"
+"Struct; n.Number = \"12345678\"; p.Tel = n; // creates a copy of n\n"
+"p.Tel.Number = \"18273645\"; // changes p.Tel.Number but does not change\n"
+"n.Number n.Number = \"87654321\"; // changes n.Number but does not change\n"
+"p.Tel.Number\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Enhancing Zetbox’s inner workings\n"
+"---------------------------------\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Database Providers"
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Concurrency\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Zetbox supports optimistic concurrency. It’s enabled, when a *ObjectClass* "
+"implements the *IChangedBy* interface. The versioning column is *ChangedOn*."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Core Zetbox Development Environment\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Preparing a clean local build"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"First, it is necessary to have a clean build environment. Use *subst* to "
+"create a drive *P:* where your checkout resides in a directory called "
+"*Zetbox*."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The *!FullReset.cmd* will bring the database and the bootstrapping code up "
+"to the current *Database.xml*’s content."
+msgstr ""
+
+#. type: Plain text
+msgid "Now the environment is ready for programming."
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Merging local and remote changes"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"When the subversion repository has changed the *Database.xml* while local "
+"changes were made to the schema, it is necessary to merge them before "
+"comitting."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"After fetching and merging the update from the subversion repository, the "
+"local *Database.xml* has changes which are not yet in the database.  Running "
+"*!DeployAll.cmd* updadates the SQL-schema and produces a new set of "
+"generated assemblies in the *CodeGenPath*. After testing that the merge was "
+"successful, use *GetCodeGen.cmd* to update the working directory with the "
+"newly generated bootstrapping code."
+msgstr ""
+
+#. type: Plain text
+msgid "Now the working directory is ready for check in."
+msgstr ""

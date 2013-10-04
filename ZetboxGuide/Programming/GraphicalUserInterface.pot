@@ -1,0 +1,766 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-04 09:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Title =
+#, no-wrap
+msgid "Graphical User Interface\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Like other subsystems, the GUI core is designed to be platform "
+"independent. Therefore only the *outermost* shell contains toolkit specific "
+"code."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Architecture\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The GUI is modeled after the Model-View-ViewModel architecture. The *Model* "
+"represents the underlying data structures and business logic. It is provided "
+"by the generated classes from the actual datamodel."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*View Models* provide display specific functionality like formatting,\n"
+"transient state holding and implementing the user’s possible actions.\n"
+"They always inherit from *Zetbox.Client.Presentables.ViewModel*. Common\n"
+"implementations reside in the *Zetbox.Client.Presentables* namespace.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*Control Kinds* are representing a way how *ViewModels* would like to be\n"
+"displayed. For example:\n"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "as a TextBox"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "as a DropDownList"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "as a CheckBox"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "as a RadioButtonList"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*Control Kinds* are simply a sort of enumeration items. They do not\n"
+"provide any services. *ControlKinds* can be put into a hierarchy. That\n"
+"enables the infrastructure to choose another view if a certian\n"
+"*ControlKind* is not implemented in a Toolkit.\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Finally, *Views* (editors and displays) are the actual components taking "
+"care of showing content to the user and converting the users keypresses and "
+"clicks into calls on the view models interface. Views are toolkit[^1] "
+"specific and reside in the toolkit’s respective assembly."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This architecture decouples the actual functionality of the Model and the "
+"View Model completly from the inner workings of a toolkit and thereby "
+"maximise the reuse of code between different clients."
+msgstr ""
+
+#. type: Plain text
+msgid "[ht]"
+msgstr ""
+
+#. type: Plain text
+msgid "![image](images/GUI_Relation_MVVM.png) [GUI~R~elation~M~VVM]"
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Plumbing\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The three layers are connected through two sets of descriptors and "
+"*ControlKinds*. The *ViewModelDescriptor*s contain information about the "
+"available View Models and their preferred way of being displayed."
+msgstr ""
+
+#. type: Plain text
+msgid "public interface ViewModelDescriptor"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Zetbox.App.GUI.ControlKind DefaultKind; Zetbox.App.GUI.ControlKind "
+"DefaultDisplayKind; Zetbox.App.GUI.ControlKind DefaultGridCellDisplayKind; "
+"Zetbox.App.GUI.ControlKind DefaultGridCellKind;"
+msgstr ""
+
+#. type: Plain text
+msgid "string Description;"
+msgstr ""
+
+#. type: Plain text
+msgid "Zetbox.App.Base.TypeRef ViewModelRef;"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*ViewDescriptor*s contain information about controls which are capable\n"
+"of displaying certian *ControlKinds*.\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"public interface ViewModelDescriptor Zetbox.App.GUI.ControlKind ControlKind; "
+"Zetbox.App.Base.TypeRef ControlRef; Zetbox.App.GUI.Toolkit Toolkit;"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Some implemented ViewModels"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*DataObjectViewModel*\n"
+":   represent a complete data object; provide standardised access to\n"
+"    properties; provide non-standard ViewModels with additional\n"
+"    functionality; selected via *ObjectClass.DefaultViewModelDescriptor*\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*BaseValueViewModel*s\n"
+":   represent a specific piece of simple data (strings, DateTimes); Data\n"
+"    can be the a Propertiy, MethodResults or simply a Value; Properties\n"
+"    and Parameter of Methods selects their *ViewModel* via their\n"
+"    *ValueModelDescriptor* Property;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ActionViewModel\n"
+":   represent a Method which can be invoked in the UI.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ObjectEditor.WorkspaceViewModel\n"
+":   This ViewModel implements all featurs of and Object Editor. This\n"
+"    includes Cancel, Save or selecting the current item.\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Control Kind"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The *ControlKind* specifies the toolkit-independent kind or type of control "
+"that should display a given Presentable. While the View specifies the "
+"Control Kind it implements the Presentable requests a specific Kind to be "
+"displayed via the *PresentableModelDescriptor.DefaultControlKind* value."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"In special situations this default value can be overridden. For example, the "
+"metadata of a property contains a *RequestedControlKind* which is used "
+"instead of the *DefaultControlKind* when present. If there is no View "
+"matching the requested Kind, the infrastructure may either fall back to the "
+"default control kind, or use a similar control kind from higher up in the "
+"hierarchy."
+msgstr ""
+
+#. type: Plain text
+msgid "Typical kinds of controls:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"WorkspaceWindow\n"
+":   the top-level control within which all user interaction happens\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"SelectionTaskDialog\n"
+":   a dialog letting the user select something from a longer list of\n"
+"    items\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ObjectView\n"
+":   display the modeled object in full\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ObjectListEntry\n"
+":   display the modeled object as item in a list\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"TextEntry\n"
+":   lets the user edit a property as text\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"IntegerSlider\n"
+":   lets the user edit a number with a slider\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"YesNoCheckbox\n"
+":   a simple yes/no checkbox\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"YesNoOtherText\n"
+":   radio buttons allowing one to select either \"yes\", \"no\" or a\n"
+"    TextEntry field\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ExtendedYesNoCheckbox\n"
+":   a checkbox with additional text as label\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The kind of a control is identified by the *ControlKind*’s class. The "
+"hierarchy between different kinds of controls is modeled with inheritance."
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Views"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Their descriptors list the available Views by Toolkit and which ControlKind "
+"they represent. *View Descriptors* can define which *ViewModel*s (or "
+"Interfaces to ViewModels) are supported."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Resolving ViewModels\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "*ViewModels* are resolved by the *IViewModelFactory*\n"
+msgstr ""
+
+#. type: Plain text
+msgid "public interface IViewModelFactory"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"void ShowModel(ViewModel mdl, bool activate); void ShowModel(ViewModel mdl, "
+"Zetbox.App.GUI.ControlKind kind, bool activate);"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"void CreateTimer(TimeSpan tickLength, Action action); string "
+"GetSourceFileNameFromUser(params string[] filter); string "
+"GetDestinationFileNameFromUser(string filename, params string[] filter); "
+"Toolkit Toolkit get;"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"// Create Models TModelFactory CreateViewModel\\<TModelFactory\\>() where\n"
+"TModelFactory : class; TModelFactory\n"
+"CreateViewModel\\<TModelFactory\\>(Zetbox.API.IDataObject obj) where\n"
+"TModelFactory : class; TModelFactory\n"
+"CreateViewModel\\<TModelFactory\\>(Zetbox.API.ICompoundObject obj) where\n"
+"TModelFactory : class; TModelFactory\n"
+"CreateViewModel\\<TModelFactory\\>(Zetbox.App.Base.Property p) where\n"
+"TModelFactory : class; TModelFactory\n"
+"CreateViewModel\\<TModelFactory\\>(Zetbox.App.Base.BaseParameter p) where\n"
+"TModelFactory : class; TModelFactory\n"
+"CreateViewModel\\<TModelFactory\\>(Zetbox.App.Base.Method m) where\n"
+"TModelFactory : class; TModelFactory\n"
+"CreateViewModel\\<TModelFactory\\>(System.Type t) where TModelFactory :\n"
+"class;\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"// IMultipleInstancesManager void "
+"OnIMultipleInstancesManagerCreated(Zetbox.API.IZetboxContext ctx, "
+"IMultipleInstancesManager workspace); void "
+"OnIMultipleInstancesManagerDisposed(Zetbox.API.IZetboxContext ctx, "
+"IMultipleInstancesManager workspace);"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*ViewModel*s can be created directly if the requested *ViewModel* is\n"
+"known. Some *ObjectClasses* (ObjectClass, Property, Method, Parameter,\n"
+"etc.) can declare a more specific *ViewModel*. Use a more specific\n"
+"*CreateViewModel* overload in such a case.\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The most obvious example is *Property*. There is a need for different "
+"*ViewModel*s for a *StringProperty* vs. *ObjectReferenceProperty*. Each "
+"*ViewModel* for displaying Properties derives from a very basic "
+"*BaseValueViewModel*."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"IntProperty\n"
+":   is displayed by a NullableStructValueViewModel of type int\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"BoolProperty\n"
+":   is displayed by a NullableStructValueViewModel of type bool\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"DecimalProperty\n"
+":   is displayed by a NullableStructValueViewModel of type decimal\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"StringProperty\n"
+":   is displayed by a ClassValueViewModel of type string or\n"
+"    MultiLineStringValueViewModel\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"DateTimeProperty\n"
+":   is displayed by a NullableDateTimePropertyViewModel\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ObjectReferenceProperty\n"
+":   is displayed by a ObjectReferenceViewModel,\n"
+"    ObjectCollectionViewModel or ObjectListViewModel\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Create a specific *ViewModel* by calling:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "mdlFactory.CreateViewModel\\<WorkspaceViewModel.Factory\\>().Invoke(ctx);\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Create a *ViewModel* for a *Property* by calling:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ViewModelFactory.CreateViewModel\\<BaseValueViewModel.Factory\\>(prop).Invoke(DataContext,\n"
+"prop.GetValueModel(Object));\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Create a *ViewModel* for a *IDataObject* by calling:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"ViewModelFactory.CreateViewModel\\<DataObjectViewModel.Factory\\>(obj).Invoke(DataContext,\n"
+"obj);\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The *ViewModelFactory* will look up the *IDataObject*s type and tries to "
+"find it’s *ObjectClass*. Then it looks up the *ViewModelDescriptor* and "
+"creates the *ViewModel*."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Using ViewModels\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "DataObjectViewModel"
+msgstr ""
+
+#. type: Plain text
+msgid "The *DataObjectViewModel* wraps a whole *IDataObject* in a ViewModel."
+msgstr ""
+
+#. type: Plain text
+msgid "The most important Properties and Methods are:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"PropertyModels\n"
+":   A read only list of all known *BaseValueViewModels* fetched from the\n"
+"    *ObjectClass*.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"OnPropertyModelsCreated()\n"
+":   Called after the *PropertyModels* list has been created. In a\n"
+"    derived, custom *ViewModel* this event can be used for additional\n"
+"    *ValueViewModel* setup routines. E.g. adding custom commands to\n"
+"    *ObjectReference\\*ViewModels*.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"PropertyModelsByName\n"
+":   Dictionary of *BaseValueViewModels* with the property name as the\n"
+"    key.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"OnPropertyModelsByNameCreated()\n"
+":   Called after the *PropertyModelsByName* dictionary has been created.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"PropertyGroups\n"
+":   A read only collection of property groups. See\n"
+"    *CreatePropertyGroups* for more information.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"CreatePropertyGroups\n"
+":   Property groups are created based on the properties summary tags.\n"
+"    Due to the fact, that properties can have more than one summary tag,\n"
+"    properties may appear in more than one property group. Properties\n"
+"    with no summary tags appears in the “Uncategorised” group. Note,\n"
+"    that currently summary tags may not contain spaces as the space is\n"
+"    defined as the seperator. You can override this method to add custom\n"
+"    property groups.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"    protected override List\\<PropertyGroupViewModel\\>\n"
+"    CreatePropertyGroups()\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "    var result = base.CreatePropertyGroups();\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"    var relListMdl =\n"
+"    ViewModelFactory.CreateViewModel\\<InstanceListViewModel.Factory\\>()\n"
+"    .Invoke(DataContext, () =\\> DataContext,\n"
+"    typeof(Relation).GetObjectClass(FrozenContext), () =\\>\n"
+"    DataContext.GetQuery\\<Relation\\>() );\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"    var lblMdl =\n"
+"    "
+"ViewModelFactory.CreateViewModel\\<LabeledViewContainerViewModel.Factory\\>().Invoke(DataContext,\n"
+"    \"Relations\", \"\", relListMdl); var propGrpMdl =\n"
+"    "
+"ViewModelFactory.CreateViewModel\\<SinglePropertyGroupViewModel.Factory\\>().Invoke(DataContext,\n"
+"    \"Relations\", new ViewModel[] lblMdl ); result.Add(propGrpMdl);\n"
+"    return result;\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"PropertyGroupsByName\n"
+":   Dictionary of *PropertyGroups* with the group name as the key.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"IsReadOnly\n"
+":   Specifies, that the underlying object should be read only.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "    This sets every property read only.\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "ValueViewModel"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Highlighting"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Every *ViewModel* supports highlighting. Highlighting is the visual "
+"representation of an object state. It is the *ViewModel* decision how to "
+"translate the business state to the visual state. Therefore, the *ViewModel* "
+"exposes an property *Highlight*."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"public class Highlight : INotifyPropertyChanged HighlightState State get; "
+"set; string GridBackground get; set; string GridForeground get; set; "
+"FontStyle GridFontStyle get; set; string PanelBackground get; set;"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Visual states (*HighlightState*) are a fixed enumeration, described as the "
+"most common verbs like Good, Neutral, Bad, Archived, Deactivated, Active, "
+"Output, Input, Calculation, Info, Warning, Error, Fatal, Note, …"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Each of this *HighlightState* will be translated by the *Toolkit* into it "
+"final visual representation. E.g. Warning will be rendered in Grid with an "
+"yellow background color and a black foreground color. Error will be rendered "
+"in a Grid with an red background color and a white foreground color. This "
+"color schema makes it easier for the user to identify an object business "
+"state quickly. Therefore a *Toolkit* should not implement another color "
+"schema."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Sometimes, there is a need to use custom colors. E.g. if the sales volume "
+"should be formatted from green (high) smoothly to red (low).  Something like "
+"a balanced score card. In this case the *ViewModel* should return custom "
+"colors in the *GridBackground*, *GridForeground*, etc. properties."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Thus, that every ViewModel supports highlighting it is possible to color the "
+"whole line plus color some cell individually."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The *HighlightState* is not only used in Grids and Lists. It is also used in "
+"panels. The color schema may be slightly different from the girds color "
+"schema. E.G. it makes no sense to color a panels background in a light gray "
+"color to signal the Deactivated state. It should be a darker gray. If the "
+"panels background color should be customized override the *PanelBackground* "
+"property."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Implementation\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Implementing a ViewModel"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Implementing a WPF View"
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "Asynchronous Loading\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Not yet implemented."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"To facilitate low-latency user interfaces, the ViewModels should implement a "
+"thin proxy layer to delegate all potential blocking operations onto a worker "
+"thread. To keep programming this layer easy, there are a few helper classes "
+"and a few constraints on the available interface mechanisms as well as a "
+"consistent contract over all compliant ViewModels."
+msgstr ""
+
+#. type: Plain text
+msgid "There are only three ways to communicate over the *thread gap*:"
+msgstr ""
+
+#. type: Bullet: '1.  '
+msgid "accessing a property"
+msgstr ""
+
+#. type: Bullet: '2.  '
+msgid "calling a *void* function (with not *out* or *ref* parameters)"
+msgstr ""
+
+#. type: Bullet: '3.  '
+msgid "having an *EventHandler* called"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"All compliant ViewModels provide a *IsLoading* property that signifies "
+"whether any background processing is active. While this property is true, "
+"any value read from a property may be stale and/or about to be "
+"replaced. Changes to the visible value of a property are always reported via "
+"the *PropertyChanged* event from the *INotifyPropertyChanged* "
+"interface. This should suffice for enabling binding frameworks to show "
+"current values to the user: When reading a value from a property, a cached "
+"value is returned immediately and optionally a refresh is triggered, which "
+"in turn may cause a PropertyChanged event a little bit later."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"In the case of time-dependent values, the ViewModel has to take care to "
+"establish a periodic refresh timer[^2] which triggers PropertyChanged events "
+"when new values arrive."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Similarily, methods called on the ViewModel do not actually do their work "
+"immediately, but delegate to the background worker thread. Results either "
+"show up automatically through changed properties and the PropertyChanged "
+"event or via specialized events."
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Thread Safety"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The ViewModel is designed to be accessed from a single UI thread. Due to the "
+"low latency of the public interface, this should pose no problem.  The "
+"ViewModel internally takes care of all synchronization with the worker "
+"thread. Due to the asynchronicity of the underlying data it is quite "
+"possible that the values of properties change while a method on the UI "
+"thread is currently executing."
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Automatic Generation"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Due to the restricted set of operations allowed, the proxy can and should be "
+"automatically generated, freeing the ViewModel from the intricacies of "
+"synchronizing and delegating across thread boundaries.  Special needs like "
+"callback parameters and time-dependent values have to be communicated via "
+"special Attributes."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"[^1]: Toolkits are GUI libraries like WPF, GTK\\# or Windows Forms but\n"
+"    can also be implemented by more complex providers such as ASP.NET.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"[^2]: Todo: such a timer should be provided by the infrastructure for\n"
+"    platform dependent refreshing\n"
+msgstr ""

@@ -1,0 +1,249 @@
+[Deployment]Deployment
+======================
+
+This section describes the possible deployment strategies.
+
+this section is a subject to change
+
+Continuous Integration Server
+-----------------------------
+
+The *Continuous Integration Server* does a publish in a directory
+structure. This directory structure is transformed by a *fetch* script
+into the designated directory structure.
+
+It’s not recommended to use the *Continuous Integration Servers*
+structure directly. The next section will discuss the fetching process
+and the designated directory structure.
+
+Fetching and Destination Directory Structure
+--------------------------------------------
+
+The fetching script is responsible for
+
+-   Creating the directory structure
+
+-   Fetching all Assemblies and putting them in the right destination
+    directory
+
+-   Copying all app configuration files to the right directories
+
+The directory structure on the deployment server should look like this:
+
+-   AppConfigs
+
+-   bin
+
+    -   Bootstrapper
+
+    -   Client
+
+        -   Client
+
+            -   App.Zetbox
+
+            -   Core
+
+            -   Core.Generated
+
+            -   WPF
+
+            -   WinForms
+
+        -   Common
+
+            -   App.Zetbox
+
+            -   Core
+
+            -   Core.Generated
+
+        -   Zetbox.Client.WPF.exe
+
+        -   Zetbox.Client.WPF.exe.config
+
+        -   Zetbox.Client.Forms.exe
+
+        -   Zetbox.Client.Forms.exe.config
+
+    -   Server
+
+        -   Common
+
+            -   App.Zetbox
+
+            -   Core
+
+            -   Core.Generated
+
+        -   Server
+
+            -   App.Zetbox
+
+            -   Core
+
+            -   Core.Generated
+
+            -   EF
+
+            -   EF.Generated
+
+            -   NH
+
+            -   NH.Generated
+
+        -   Zetbox.Server.Service.exe
+
+        -   Zetbox.Server.Service.exe.config
+
+-   Configs
+
+-   DocumentStore
+
+-   inetpub
+
+    -   App\_Data
+
+    -   App\_GlobalResources
+
+    -   App\_Themes
+
+    -   bin
+
+    -   Bootstrapper
+
+    -   Common
+
+        -   App.Zetbox
+
+        -   Core
+
+        -   Core.Generated
+
+    -   Server
+
+        -   App.Zetbox
+
+        -   Core
+
+        -   Core.Generated
+
+        -   EF
+
+        -   EF.Generated
+
+        -   NH
+
+        -   NH.Generated
+
+-   logs
+
+-   Packages
+
+-   deploy.ps1
+
+-   fetch.ps1
+
+### Root Directory
+
+The deployment script, responsible for upgrading the servers database
+
+The fetch script, responsible for creating the directory structure and
+fetching all assemblies and configuration templates
+
+### AppConfigs
+
+This directory contains all app configuration files needed by the
+executing assemblies. E.g. in the *Zetbox.Server.Service.exe.config* all
+WCF Service stuff can be configured. In *Zetbox.Client.WPF.exe.config*
+all WCF Proxy stuff can be configured.
+
+The fetch script will copy those configuration files into the desired
+directories, right beside their executalables.
+
+So this is the place where all app specific configuration has to be
+defined.
+
+Besides WCF stuff, those configuration can be also found in those files:
+
+-   log4net
+
+-   WCF
+
+-   Assembly Bindings
+
+-   Database provider registration
+
+The web.config is not located here, but this may change in the future
+
+### Configs
+
+This directory contains all Zetbox configuration files. They are located
+by the executalable by probing
+
+-   the given command line parameter
+
+-   then the *zenv* environment variable plus executalable name
+
+-   then each directory up to the *Configs* directory, still with the
+    executalable name
+
+-   at the end by looking for *DefaultConfig.xml* in the configs
+    directory
+
+### bin
+
+The bin directory contains all assemblies used by Zetbox, divided by
+theire use (Bootstrapper, Client or Server). The *Client* and *Server*
+directories contains sub directories to split Client/Server and Common
+parts. Those directories have for each Application (=Zetbox Module) and
+Modules (not Zetbox Modules!) a individual sub directory.
+
+The naming of Application (=Zetbox Module) should be:
+
+App.\<ModuleName\>
+
+*Core* contains all core assemblies like Zetbox.API and all other
+assemblies that are referenced by default (log4net e.g.).
+
+*Core.Generated* contains all genereated code. Code Generation is done
+by the *Continuous Integration Server* so those assemblies will be
+copied by the fetch script.
+
+This is a topic of discussion
+
+*Bootstrapper* contains only one executalable. The Boostrapper itself
+which is downloading the whole client application with its configuration
+from an HTTP Server via REST.
+
+Deployment on a Linux Server
+----------------------------
+
+On Linux the following packages are needed:
+
+-   Mono 2.10 - master
+
+-   Apache 2
+
+-   mod\_mono
+
+-   many other…
+
+### Apache configuration
+
+-   Install Apache
+
+-   install mod\_mono
+
+-   turn off KeepAlive - the .NET HTTP Client won’t talk to Apache
+    correctly
+
+-   enable/configure your security model
+
+-   ensure that the *TrustedBasicAuthenticationModule* is enabled.
+
+The Apache Server is responsible for authentication. The ZToolbox server
+trusts Apache and uses the passed identity (through the HTTP Header).
+
+Deployment on a Windows Server
+------------------------------

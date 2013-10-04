@@ -1,0 +1,363 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-04 09:46+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Title =
+#, no-wrap
+msgid "[Packaging]Packaging\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This chapter describes the way how modules (packages) are transferred "
+"between Zetbox installations."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "[Packaging~C~ontent~o~f~ap~ackage]Content of a package\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A package contains schema information, meta data, object instances and "
+"code. See [content~o~f~p~ackage] for details. A package can contain one or "
+"more modules. A package is a zip file that contains one or more XML files "
+"containing meta information and/or data and binary files like icons or "
+"assemblies."
+msgstr ""
+
+#. type: Plain text
+msgid "[ht]"
+msgstr ""
+
+#. type: Plain text
+msgid "![image](images/content_of_package.png) [content~o~f~p~ackage]"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~S~chema]Schema"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Schema contains all information needed by the SchemaManager [] to create or "
+"update the database. Schema objects are:"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"All object classes and structs except enumerations and interfaces. *To be "
+"implemented!*"
+msgstr ""
+
+#. type: Plain text
+msgid "All properties"
+msgstr ""
+
+#. type: Plain text
+msgid "All relations"
+msgstr ""
+
+#. type: Plain text
+msgid "All relation ends"
+msgstr ""
+
+#. type: Plain text
+msgid "All known default property values (IntDefaultValue, …)"
+msgstr ""
+
+#. type: Plain text
+msgid "All known constraints (NotNullable, …)"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Schema is a subset of meta data. See [Packaging~M~eta]. Currently there is "
+"no way to extract schema information without meta information."
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~M~eta]Meta"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Meta data contains all information needed to describe a Module. That are "
+"*ObjectClasses*, *TypeRefs*, *Module* informations, *icons*, "
+"*ViewDescriptors* and so on. Meta data is a superset of schema data "
+"[Packaging~S~chema]. These objects are:"
+msgstr ""
+
+#. type: Plain text
+msgid "The module object"
+msgstr ""
+
+#. type: Plain text
+msgid "All object class interface relations"
+msgstr ""
+
+#. type: Plain text
+msgid "All Methods"
+msgstr ""
+
+#. type: Plain text
+msgid "All parameter of a method"
+msgstr ""
+
+#. type: Plain text
+msgid "All method invocations"
+msgstr ""
+
+#. type: Plain text
+msgid "All property invocations (getter/setter)"
+msgstr ""
+
+#. type: Plain text
+msgid "All Assemblies (meta information only, not code)"
+msgstr ""
+
+#. type: Plain text
+msgid "All type references"
+msgstr ""
+
+#. type: Plain text
+msgid "All generic arguments of type references."
+msgstr ""
+
+#. type: Plain text
+msgid "All Icons (descriptor only, no binary data)"
+msgstr ""
+
+#. type: Plain text
+msgid "All presentable model descriptors"
+msgstr ""
+
+#. type: Plain text
+msgid "All view descriptors"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"please add more GUI objects here. And please do it also in "
+"*PackagingHelper.GetMetaObjects(…)*"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Additionally all unknown DefaultPropertyValues and Constraints belongs to "
+"meta data. Meta data can be extracted with the publish command "
+"[Packaging~P~ublish]."
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~D~ata]Data"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A package can also contain additional data. Only object classes that "
+"implements *IExportable* will be exported. N:M relations between object "
+"classes that implements *IExportable* are also exported. Currently all "
+"objects of a specific module are exported. Data can be extracted with the "
+"export command [Packaging~E~xport]."
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~C~ode]Code"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Finally a package consists of code in form of assemblies. These assemblies "
+"are referenced by *Assembly* objects."
+msgstr ""
+
+#. type: Title -
+#, no-wrap
+msgid "[Packaging~P~rocesses]Processes\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~E~xport]Export"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Exporting is the process of saving objects in XML files. Only object classes "
+"that implements *IExportable* will be exported. N:M relations between object "
+"classes that implements *IExportable* are also exported.  Currently all "
+"objects of a specific module are exported."
+msgstr ""
+
+#. type: Plain text
+msgid "Command line for exporting objects:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Zetbox.Server \\<configfile.xml\\> -export \\<destfile.xml\\> "
+"\\<namespace\\>\n"
+"[\\<namespace\\> ...]\n"
+msgstr ""
+
+#. type: Plain text
+#:  
+msgid ""
+"The namespace is used to identify a module. *TODO: Work in progress.  This "
+"is not the best solution!*"
+msgstr ""
+
+#. type: Plain text
+msgid "This example will export all objects of the project management module:"
+msgstr ""
+
+#. type: Plain text
+msgid "Zetbox.Server -export Export.xml Zetbox.App.Projekte"
+msgstr ""
+
+#. type: Plain text
+msgid "This example will export *all* meta data of *all* modules:"
+msgstr ""
+
+#. type: Plain text
+msgid "Zetbox.Server -export Export.xml Zetbox.App.Base Zetbox.App.GUI"
+msgstr ""
+
+#. type: Plain text
+msgid "This example will export the whole database:"
+msgstr ""
+
+#. type: Plain text
+msgid "Zetbox.Server -export Export.xml \\*"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~I~mport]Import"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Importing is the inverse process of exporting [Packaging~E~xport].  Objects "
+"are imported by the following rules:"
+msgstr ""
+
+#. type: Bullet: '1.  '
+#:  
+msgid ""
+"If an imported object already exists in the target database then the object "
+"will be overridden"
+msgstr ""
+
+#. type: Bullet: '3.  '
+#:  
+msgid "New objects are added"
+msgstr ""
+
+#. type: Bullet: '3.  '
+msgid "No object is deleted if it’s not contained in the package"
+msgstr ""
+
+#. type: Plain text
+#:  
+msgid "Command line for importing objects:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "Zetbox.Server \\<configfile.xml\\> -import \\<sourcefile.xml\\>\n"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~P~ublish]Publish"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Publishing is a special case of exporting [Packaging~E~xport]. Only meta "
+"data [Packaging~M~eta] of a given module will be exported. Additionally only "
+"properties of the Zetbox.App.Base and Zetbox.App.GUI module are published."
+msgstr ""
+
+#. type: Plain text
+msgid "Command line for publishing modules:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"Zetbox.Server \\<configfile.xml\\> -publish \\<destfile.xml\\> "
+"\\<namespace\\>\n"
+"[\\<namespace\\> ...]\n"
+msgstr ""
+
+#. type: Plain text
+msgid "This example will publish the project management module:"
+msgstr ""
+
+#. type: Plain text
+msgid "Zetbox.Server -publish Meta.xml Zetbox.App.Projekte"
+msgstr ""
+
+#. type: Plain text
+msgid "This example will publish all modules:"
+msgstr ""
+
+#. type: Plain text
+msgid "Zetbox.Server -publish Meta.xml \\*"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "[Packaging~D~eploy]Deploy"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Deployment is the inverse process of publishing [Packaging~P~ublish]. It "
+"also has different rules (see importing [Packaging~I~mport]). These Rules "
+"are:"
+msgstr ""
+
+#. type: Bullet: '2.  '
+msgid ""
+"Only properties of the the Zetbox.App.Base and Zetbox.App.GUI module are "
+"overriden."
+msgstr ""
+
+#. type: Bullet: '4.  '
+msgid "Any object that is not contained in the packed will be deleted"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "Zetbox.Server \\<configfile.xml\\> -deploy \\<sourcefile.xml\\>\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The database schema is not updated. Also no code is generated. This has to "
+"be done in an extra step."
+msgstr ""

@@ -1,0 +1,408 @@
+Graphical User Interface
+========================
+
+Like other subsystems, the GUI core is designed to be platform
+independent. Therefore only the *outermost* shell contains toolkit
+specific code.
+
+Architecture
+------------
+
+The GUI is modeled after the Model-View-ViewModel architecture. The
+*Model* represents the underlying data structures and business logic. It
+is provided by the generated classes from the actual datamodel.
+
+*View Models* provide display specific functionality like formatting,
+transient state holding and implementing the user’s possible actions.
+They always inherit from *Zetbox.Client.Presentables.ViewModel*. Common
+implementations reside in the *Zetbox.Client.Presentables* namespace.
+
+*Control Kinds* are representing a way how *ViewModels* would like to be
+displayed. For example:
+
+-   as a TextBox
+
+-   as a DropDownList
+
+-   as a CheckBox
+
+-   as a RadioButtonList
+
+*Control Kinds* are simply a sort of enumeration items. They do not
+provide any services. *ControlKinds* can be put into a hierarchy. That
+enables the infrastructure to choose another view if a certian
+*ControlKind* is not implemented in a Toolkit.
+
+Finally, *Views* (editors and displays) are the actual components taking
+care of showing content to the user and converting the users keypresses
+and clicks into calls on the view models interface. Views are
+toolkit[^1] specific and reside in the toolkit’s respective assembly.
+
+This architecture decouples the actual functionality of the Model and
+the View Model completly from the inner workings of a toolkit and
+thereby maximise the reuse of code between different clients.
+
+[ht]
+
+![image](images/GUI_Relation_MVVM.png) [GUI~R~elation~M~VVM]
+
+Plumbing
+--------
+
+The three layers are connected through two sets of descriptors and
+*ControlKinds*. The *ViewModelDescriptor*s contain information about the
+available View Models and their preferred way of being displayed.
+
+public interface ViewModelDescriptor
+
+Zetbox.App.GUI.ControlKind DefaultKind; Zetbox.App.GUI.ControlKind
+DefaultDisplayKind; Zetbox.App.GUI.ControlKind
+DefaultGridCellDisplayKind; Zetbox.App.GUI.ControlKind
+DefaultGridCellKind;
+
+string Description;
+
+Zetbox.App.Base.TypeRef ViewModelRef;
+
+*ViewDescriptor*s contain information about controls which are capable
+of displaying certian *ControlKinds*.
+
+public interface ViewModelDescriptor Zetbox.App.GUI.ControlKind
+ControlKind; Zetbox.App.Base.TypeRef ControlRef; Zetbox.App.GUI.Toolkit
+Toolkit;
+
+### Some implemented ViewModels
+
+*DataObjectViewModel*
+:   represent a complete data object; provide standardised access to
+    properties; provide non-standard ViewModels with additional
+    functionality; selected via *ObjectClass.DefaultViewModelDescriptor*
+
+*BaseValueViewModel*s
+:   represent a specific piece of simple data (strings, DateTimes); Data
+    can be the a Propertiy, MethodResults or simply a Value; Properties
+    and Parameter of Methods selects their *ViewModel* via their
+    *ValueModelDescriptor* Property;
+
+ActionViewModel
+:   represent a Method which can be invoked in the UI.
+
+ObjectEditor.WorkspaceViewModel
+:   This ViewModel implements all featurs of and Object Editor. This
+    includes Cancel, Save or selecting the current item.
+
+### Control Kind
+
+The *ControlKind* specifies the toolkit-independent kind or type of
+control that should display a given Presentable. While the View
+specifies the Control Kind it implements the Presentable requests a
+specific Kind to be displayed via the
+*PresentableModelDescriptor.DefaultControlKind* value.
+
+In special situations this default value can be overridden. For example,
+the metadata of a property contains a *RequestedControlKind* which is
+used instead of the *DefaultControlKind* when present. If there is no
+View matching the requested Kind, the infrastructure may either fall
+back to the default control kind, or use a similar control kind from
+higher up in the hierarchy.
+
+Typical kinds of controls:
+
+WorkspaceWindow
+:   the top-level control within which all user interaction happens
+
+SelectionTaskDialog
+:   a dialog letting the user select something from a longer list of
+    items
+
+ObjectView
+:   display the modeled object in full
+
+ObjectListEntry
+:   display the modeled object as item in a list
+
+TextEntry
+:   lets the user edit a property as text
+
+IntegerSlider
+:   lets the user edit a number with a slider
+
+YesNoCheckbox
+:   a simple yes/no checkbox
+
+YesNoOtherText
+:   radio buttons allowing one to select either "yes", "no" or a
+    TextEntry field
+
+ExtendedYesNoCheckbox
+:   a checkbox with additional text as label
+
+The kind of a control is identified by the *ControlKind*’s class. The
+hierarchy between different kinds of controls is modeled with
+inheritance.
+
+### Views
+
+Their descriptors list the available Views by Toolkit and which
+ControlKind they represent. *View Descriptors* can define which
+*ViewModel*s (or Interfaces to ViewModels) are supported.
+
+Resolving ViewModels
+--------------------
+
+*ViewModels* are resolved by the *IViewModelFactory*
+
+public interface IViewModelFactory
+
+void ShowModel(ViewModel mdl, bool activate); void ShowModel(ViewModel
+mdl, Zetbox.App.GUI.ControlKind kind, bool activate);
+
+void CreateTimer(TimeSpan tickLength, Action action); string
+GetSourceFileNameFromUser(params string[] filter); string
+GetDestinationFileNameFromUser(string filename, params string[] filter);
+Toolkit Toolkit get;
+
+// Create Models TModelFactory CreateViewModel\<TModelFactory\>() where
+TModelFactory : class; TModelFactory
+CreateViewModel\<TModelFactory\>(Zetbox.API.IDataObject obj) where
+TModelFactory : class; TModelFactory
+CreateViewModel\<TModelFactory\>(Zetbox.API.ICompoundObject obj) where
+TModelFactory : class; TModelFactory
+CreateViewModel\<TModelFactory\>(Zetbox.App.Base.Property p) where
+TModelFactory : class; TModelFactory
+CreateViewModel\<TModelFactory\>(Zetbox.App.Base.BaseParameter p) where
+TModelFactory : class; TModelFactory
+CreateViewModel\<TModelFactory\>(Zetbox.App.Base.Method m) where
+TModelFactory : class; TModelFactory
+CreateViewModel\<TModelFactory\>(System.Type t) where TModelFactory :
+class;
+
+// IMultipleInstancesManager void
+OnIMultipleInstancesManagerCreated(Zetbox.API.IZetboxContext ctx,
+IMultipleInstancesManager workspace); void
+OnIMultipleInstancesManagerDisposed(Zetbox.API.IZetboxContext ctx,
+IMultipleInstancesManager workspace);
+
+*ViewModel*s can be created directly if the requested *ViewModel* is
+known. Some *ObjectClasses* (ObjectClass, Property, Method, Parameter,
+etc.) can declare a more specific *ViewModel*. Use a more specific
+*CreateViewModel* overload in such a case.
+
+The most obvious example is *Property*. There is a need for different
+*ViewModel*s for a *StringProperty* vs. *ObjectReferenceProperty*. Each
+*ViewModel* for displaying Properties derives from a very basic
+*BaseValueViewModel*.
+
+IntProperty
+:   is displayed by a NullableStructValueViewModel of type int
+
+BoolProperty
+:   is displayed by a NullableStructValueViewModel of type bool
+
+DecimalProperty
+:   is displayed by a NullableStructValueViewModel of type decimal
+
+StringProperty
+:   is displayed by a ClassValueViewModel of type string or
+    MultiLineStringValueViewModel
+
+DateTimeProperty
+:   is displayed by a NullableDateTimePropertyViewModel
+
+ObjectReferenceProperty
+:   is displayed by a ObjectReferenceViewModel,
+    ObjectCollectionViewModel or ObjectListViewModel
+
+Create a specific *ViewModel* by calling:
+
+mdlFactory.CreateViewModel\<WorkspaceViewModel.Factory\>().Invoke(ctx);
+
+Create a *ViewModel* for a *Property* by calling:
+
+ViewModelFactory.CreateViewModel\<BaseValueViewModel.Factory\>(prop).Invoke(DataContext,
+prop.GetValueModel(Object));
+
+Create a *ViewModel* for a *IDataObject* by calling:
+
+ViewModelFactory.CreateViewModel\<DataObjectViewModel.Factory\>(obj).Invoke(DataContext,
+obj);
+
+The *ViewModelFactory* will look up the *IDataObject*s type and tries to
+find it’s *ObjectClass*. Then it looks up the *ViewModelDescriptor* and
+creates the *ViewModel*.
+
+Using ViewModels
+----------------
+
+### DataObjectViewModel
+
+The *DataObjectViewModel* wraps a whole *IDataObject* in a ViewModel.
+
+The most important Properties and Methods are:
+
+PropertyModels
+:   A read only list of all known *BaseValueViewModels* fetched from the
+    *ObjectClass*.
+
+OnPropertyModelsCreated()
+:   Called after the *PropertyModels* list has been created. In a
+    derived, custom *ViewModel* this event can be used for additional
+    *ValueViewModel* setup routines. E.g. adding custom commands to
+    *ObjectReference\*ViewModels*.
+
+PropertyModelsByName
+:   Dictionary of *BaseValueViewModels* with the property name as the
+    key.
+
+OnPropertyModelsByNameCreated()
+:   Called after the *PropertyModelsByName* dictionary has been created.
+
+PropertyGroups
+:   A read only collection of property groups. See
+    *CreatePropertyGroups* for more information.
+
+CreatePropertyGroups
+:   Property groups are created based on the properties summary tags.
+    Due to the fact, that properties can have more than one summary tag,
+    properties may appear in more than one property group. Properties
+    with no summary tags appears in the “Uncategorised” group. Note,
+    that currently summary tags may not contain spaces as the space is
+    defined as the seperator. You can override this method to add custom
+    property groups.
+
+    protected override List\<PropertyGroupViewModel\>
+    CreatePropertyGroups()
+
+    var result = base.CreatePropertyGroups();
+
+    var relListMdl =
+    ViewModelFactory.CreateViewModel\<InstanceListViewModel.Factory\>()
+    .Invoke(DataContext, () =\> DataContext,
+    typeof(Relation).GetObjectClass(FrozenContext), () =\>
+    DataContext.GetQuery\<Relation\>() );
+
+    var lblMdl =
+    ViewModelFactory.CreateViewModel\<LabeledViewContainerViewModel.Factory\>().Invoke(DataContext,
+    "Relations", "", relListMdl); var propGrpMdl =
+    ViewModelFactory.CreateViewModel\<SinglePropertyGroupViewModel.Factory\>().Invoke(DataContext,
+    "Relations", new ViewModel[] lblMdl ); result.Add(propGrpMdl);
+    return result;
+
+PropertyGroupsByName
+:   Dictionary of *PropertyGroups* with the group name as the key.
+
+IsReadOnly
+:   Specifies, that the underlying object should be read only.
+
+    This sets every property read only.
+
+### ValueViewModel
+
+### Highlighting
+
+Every *ViewModel* supports highlighting. Highlighting is the visual
+representation of an object state. It is the *ViewModel* decision how to
+translate the business state to the visual state. Therefore, the
+*ViewModel* exposes an property *Highlight*.
+
+public class Highlight : INotifyPropertyChanged HighlightState State
+get; set; string GridBackground get; set; string GridForeground get;
+set; FontStyle GridFontStyle get; set; string PanelBackground get; set;
+
+Visual states (*HighlightState*) are a fixed enumeration, described as
+the most common verbs like Good, Neutral, Bad, Archived, Deactivated,
+Active, Output, Input, Calculation, Info, Warning, Error, Fatal, Note, …
+
+Each of this *HighlightState* will be translated by the *Toolkit* into
+it final visual representation. E.g. Warning will be rendered in Grid
+with an yellow background color and a black foreground color. Error will
+be rendered in a Grid with an red background color and a white
+foreground color. This color schema makes it easier for the user to
+identify an object business state quickly. Therefore a *Toolkit* should
+not implement another color schema.
+
+Sometimes, there is a need to use custom colors. E.g. if the sales
+volume should be formatted from green (high) smoothly to red (low).
+Something like a balanced score card. In this case the *ViewModel*
+should return custom colors in the *GridBackground*, *GridForeground*,
+etc. properties.
+
+Thus, that every ViewModel supports highlighting it is possible to color
+the whole line plus color some cell individually.
+
+The *HighlightState* is not only used in Grids and Lists. It is also
+used in panels. The color schema may be slightly different from the
+girds color schema. E.G. it makes no sense to color a panels background
+in a light gray color to signal the Deactivated state. It should be a
+darker gray. If the panels background color should be customized
+override the *PanelBackground* property.
+
+Implementation
+--------------
+
+### Implementing a ViewModel
+
+### Implementing a WPF View
+
+Asynchronous Loading
+--------------------
+
+Not yet implemented.
+
+To facilitate low-latency user interfaces, the ViewModels should
+implement a thin proxy layer to delegate all potential blocking
+operations onto a worker thread. To keep programming this layer easy,
+there are a few helper classes and a few constraints on the available
+interface mechanisms as well as a consistent contract over all compliant
+ViewModels.
+
+There are only three ways to communicate over the *thread gap*:
+
+1.  accessing a property
+
+2.  calling a *void* function (with not *out* or *ref* parameters)
+
+3.  having an *EventHandler* called
+
+All compliant ViewModels provide a *IsLoading* property that signifies
+whether any background processing is active. While this property is
+true, any value read from a property may be stale and/or about to be
+replaced. Changes to the visible value of a property are always reported
+via the *PropertyChanged* event from the *INotifyPropertyChanged*
+interface. This should suffice for enabling binding frameworks to show
+current values to the user: When reading a value from a property, a
+cached value is returned immediately and optionally a refresh is
+triggered, which in turn may cause a PropertyChanged event a little bit
+later.
+
+In the case of time-dependent values, the ViewModel has to take care to
+establish a periodic refresh timer[^2] which triggers PropertyChanged
+events when new values arrive.
+
+Similarily, methods called on the ViewModel do not actually do their
+work immediately, but delegate to the background worker thread. Results
+either show up automatically through changed properties and the
+PropertyChanged event or via specialized events.
+
+### Thread Safety
+
+The ViewModel is designed to be accessed from a single UI thread. Due to
+the low latency of the public interface, this should pose no problem.
+The ViewModel internally takes care of all synchronization with the
+worker thread. Due to the asynchronicity of the underlying data it is
+quite possible that the values of properties change while a method on
+the UI thread is currently executing.
+
+### Automatic Generation
+
+Due to the restricted set of operations allowed, the proxy can and
+should be automatically generated, freeing the ViewModel from the
+intricacies of synchronizing and delegating across thread boundaries.
+Special needs like callback parameters and time-dependent values have to
+be communicated via special Attributes.
+
+[^1]: Toolkits are GUI libraries like WPF, GTK\# or Windows Forms but
+    can also be implemented by more complex providers such as ASP.NET.
+
+[^2]: Todo: such a timer should be provided by the infrastructure for
+    platform dependent refreshing

@@ -1,0 +1,482 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-04 09:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Title -
+#, no-wrap
+msgid "Relation\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A *Relation* defines the relationship between two Objects. Every Object can "
+"have zero or more *Relations*."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"An example of a *Relation* is the relation between *Project* and "
+"*Tasks*. One *Project* can have zero or more *Tasks*. One *Tasks* must have "
+"a *Project*."
+msgstr ""
+
+#. type: Plain text
+#:         
+msgid "[ht]"
+msgstr ""
+
+#. type: Plain text
+msgid "![image](images/Rel_1_n_Project_Tasks.jpg) [example~f~or~r~elation]"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Modeling a relation"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A Relation can be defined by creating an object of type *Relation* and two "
+"*RelationEnd* objects. This can be done by"
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "creating an Relation Object."
+msgstr ""
+
+#. type: Bullet: '-   '
+msgid "invoking the *Create Relation* method on an *ObjectClass* instance."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "*RelationEnd* objects will be created automatically.\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Relations are edited in the *Relation Editor*. The *Relation Editor* is a "
+"custom *FullObjectView* created by us."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"![image](images/ScreenShot_Rel_Project_Task.png)  "
+"[example~f~or~e~diting~r~elation]"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Attributes of a relation"
+msgstr ""
+
+#. type: Plain text
+msgid "![image](images/Rel_Attributes.png) [attributes~o~f~ar~elation]"
+msgstr ""
+
+#. type: Plain text
+msgid "A *Relation* has these attributes:"
+msgstr ""
+
+#. type: Plain text
+msgid "A text property used to describe the current relation"
+msgstr ""
+
+#. type: Plain text
+msgid "The *Module* which is introducing the current relation"
+msgstr ""
+
+#. type: Plain text
+msgid "The *StorageType* of the current relation"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A verb used to name the current relation. The verb is used in conjunction "
+"with the role names of the *RelationEnd* objects to model a unique relation "
+"name. This relation name will be used e.g. for the database FK Contraint "
+"name."
+msgstr ""
+
+#. type: Plain text
+msgid "The *RelationEnd* A of the current relation"
+msgstr ""
+
+#. type: Plain text
+msgid "The *RelationEnd* B of the current relation"
+msgstr ""
+
+#. type: Plain text
+msgid "A *RelationEnd* has these attributes:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*Relation* object if this *RelationEnd* is the A-Side of the current\n"
+"relation. Otherwise *NULL*\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"*Relation* object if this *RelationEnd* is the B-Side of the current\n"
+"relation. Otherwise *NULL*\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Specifies that the list is ordered. Applies only to lists"
+msgstr ""
+
+#. type: Plain text
+msgid "The *Multiplicity* of the current *RelationEnd*"
+msgstr ""
+
+#. type: Plain text
+msgid "An optional *Navigator*"
+msgstr ""
+
+#. type: Plain text
+msgid "Name of the role of the current *RelationEnd*"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "*ObjectClass* to which the current *RelationEnd* points\n"
+msgstr ""
+
+#. type: Plain text
+msgid "There are four *StorageTypes* defined:"
+msgstr ""
+
+#. type: Plain text
+msgid "The relation information is stored with the A-side database table"
+msgstr ""
+
+#. type: Plain text
+msgid "The relation information is stored with the B-side database table"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The relation information is stored on both sides of the relations database "
+"tables"
+msgstr ""
+
+#. type: Plain text
+msgid "The relation information is stored in a separate database table"
+msgstr ""
+
+#. type: Plain text
+msgid "There are three *Multiplicities* defined:"
+msgstr ""
+
+#. type: Plain text
+msgid "Optional Element (zero or one)"
+msgstr ""
+
+#. type: Plain text
+msgid "Required Element (exactly one)"
+msgstr ""
+
+#. type: Plain text
+msgid "Optional List Element (zero or more)"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "1:n Relation"
+msgstr ""
+
+#. type: Plain text
+msgid "A *Project* can have zero or more *Tasks*. A *Task* may have one *Project*."
+msgstr ""
+
+#. type: Plain text
+msgid "![image](images/Rel_1_n_Project_Tasks.png) [project~t~asks~r~elation]"
+msgstr ""
+
+#. type: Plain text
+#:   
+msgid "The *Relation* object would be:"
+msgstr ""
+
+#. type: Plain text
+msgid "= MergeIntoB"
+msgstr ""
+
+#. type: Plain text
+#:  
+msgid "= has"
+msgstr ""
+
+#. type: Plain text
+#:   
+msgid "The *RelationEnd* A object would be:"
+msgstr ""
+
+#. type: Plain text
+#:      
+msgid "= *Relation*"
+msgstr ""
+
+#. type: Plain text
+#:      
+msgid "= *NULL*"
+msgstr ""
+
+#. type: Plain text
+#:   
+msgid "= false"
+msgstr ""
+
+#. type: Plain text
+msgid "= ZeroOrOne. If a *Task* must have a *Project* then One."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"= *Navigator* to Tasks. The result would be a collection of *Tasks*\n"
+"(ICollection\\<Task\\>)\n"
+msgstr ""
+
+#. type: Plain text
+msgid "= Project"
+msgstr ""
+
+#. type: Plain text
+msgid "= *Task* instance of type *ObjectClass*"
+msgstr ""
+
+#. type: Plain text
+#:   
+msgid "The *RelationEnd* B object would be:"
+msgstr ""
+
+#. type: Plain text
+#:  
+msgid "= ZeroOrMore"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"= *Navigator* to the parent *Project*. The result would be a reference to a "
+"*Project*"
+msgstr ""
+
+#. type: Plain text
+msgid "= Tasks"
+msgstr ""
+
+#. type: Plain text
+#:  
+msgid "= *Project* instance of type *ObjectClass*"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"![image](images/ScreenShot_Rel_Project_Task.png)  "
+"[editing~p~roject~t~asks~r~elation]"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "n:m Relation"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A *Project* can have zero or more *ProjectMembers*. A *ProjectMember* can be "
+"assinged to zero or more *Projects*."
+msgstr ""
+
+#. type: Plain text
+msgid "![image](images/Rel_n_m_Project_Member.png) [project~m~ember~r~elation]"
+msgstr ""
+
+#. type: Plain text
+msgid "= Seperate"
+msgstr ""
+
+#. type: Plain text
+#:   
+msgid "= true"
+msgstr ""
+
+#. type: Plain text
+msgid "= ZeroOrMore."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"= *Navigator* to Persons. The result would be a list of *Persons*\n"
+"(IList\\<Person\\>)\n"
+msgstr ""
+
+#. type: Plain text
+msgid "= Projects"
+msgstr ""
+
+#. type: Plain text
+msgid "= *Person* instance of type *ObjectClass*"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"= *Navigator* to the assigned *Projects*. The result would be a list of\n"
+"*Projects* (IList\\<Project\\>)\n"
+msgstr ""
+
+#. type: Plain text
+msgid "= Member"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"![image](images/ScreenShot_Rel_Project_ProjectMember.png)  "
+"[editing~p~roject~m~ember~r~elation]"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "1:1 Relation"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"A *Relation* must have a *RelationEnd* A. A *RelationEnd* may have a AParent "
+"*Relation* if it’s a A *ReleationEnd*."
+msgstr ""
+
+#. type: Plain text
+msgid "![image](images/Rel_Attributes.png) [relation~r~elationend~r~elation]"
+msgstr ""
+
+#. type: Plain text
+msgid "= MergeIntoA"
+msgstr ""
+
+#. type: Plain text
+msgid "= hasA"
+msgstr ""
+
+#. type: Plain text
+msgid "= ZeroOrOne"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"= *Navigator* to *RelationEnd*. The result would be a reference to a "
+"*RelationEnd*"
+msgstr ""
+
+#. type: Plain text
+msgid "= Relation"
+msgstr ""
+
+#. type: Plain text
+msgid "= *RelationEnd* instance of type *ObjectClass*"
+msgstr ""
+
+#. type: Plain text
+msgid "= One"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"= *Navigator* to the assigned *Relation*. The result would be a reference to "
+"a *Relation*"
+msgstr ""
+
+#. type: Plain text
+msgid "= A"
+msgstr ""
+
+#. type: Plain text
+msgid "= *Relation* instance of type *ObjectClass*"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"![image](images/ScreenShot_Rel_Project_ProjectMember.png)  "
+"[editing~r~elation~r~elationend~r~elation]"
+msgstr ""
+
+#. type: Title ###
+#, no-wrap
+msgid "Multiplicity and StorageType summary"
+msgstr ""
+
+#. type: Plain text
+#:    
+msgid "|p5cm|p5cm|"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\\\n"
+"\\\n"
+" &\\\n"
+"A.Nav is a collection & B.Nav is nullable\\\n"
+"Multiplicity = ZeroOrOne & Multiplicity = ZeroOrMore\\\n"
+"A.Nav is a collection & B.Nav is not nullable\\\n"
+"Multiplicity = One & Multiplicity = ZeroOrMore\\\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\\\n"
+"\\\n"
+" &\\\n"
+"A.Nav is nullable & B.Nav is a collection\\\n"
+"Multiplicity = ZeroOrMore & Multiplicity = ZeroOrOne\\\n"
+"A.Nav is not nullable & B.Nav is a collection\\\n"
+"Multiplicity = ZeroOrMore & Multiplicity = One\\\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\\\n"
+"\\\n"
+" &\\\n"
+"A.Nav is a collection & B.Nav is a collection\\\n"
+"Multiplicity = ZeroOrMore & Multiplicity = ZeroOrMore\\\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"\\\n"
+"\\\n"
+"\\\n"
+"\\\n"
+" &\\\n"
+"A.Nav is nullable & B.Nav is nullable\\\n"
+"Multiplicity = ZeroOrOne & Multiplicity = ZeroOrOne\\\n"
+"A.Nav is nullable & B.Nav is not nullable\\\n"
+"Multiplicity = One & Multiplicity = ZeroOrOne\\\n"
+"A.Nav is not nullable & B.Nav is nullable\\\n"
+"Multiplicity = ZeroOrOne & Multiplicity = One\\\n"
+"A.Nav is not nullable & B.Nav is not nullable\\\n"
+"Multiplicity = One & Multiplicity = One\\\n"
+msgstr ""

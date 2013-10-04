@@ -1,0 +1,23 @@
+#. type: Bullet: '* '
+msgid "[[Introduction]]"
+msgstr ""
+
+#. type: Bullet: '* '
+msgid "[[Features]]"
+msgstr ""
+
+#. type: Bullet: '* '
+msgid "[[Programming]]"
+msgstr ""
+
+#. type: Bullet: '* '
+msgid "[[Management]]"
+msgstr ""
+
+#. type: Bullet: '* '
+msgid "[[UsingZetBox]]"
+msgstr ""
+
+#. type: Bullet: '* '
+msgid "[[Appendix]]"
+msgstr ""
