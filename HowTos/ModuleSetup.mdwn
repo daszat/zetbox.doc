@@ -1,3 +1,5 @@
+[[!meta title="Setup a module"]]
+
 This article will show you how we've implemented zetbox.Workflow. It will cover
 most of the features of zetbox.
 

@@ -1,5 +1,3 @@
-# zetbox
-
 Welcome to the zetbox documentation site.
 
 * How to [[setup a module|HowTos/ModuleSetup]].
