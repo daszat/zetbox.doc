@@ -290,10 +290,10 @@ Implementation
 --------------
 
 ### Implementing a ViewModel
-TODO!
+[[!template  id=note text="""TODO!"""]]
 
 ### Implementing a WPF View
-TODO!
+[[!template  id=note text="""TODO!"""]]
 
 States of an Input Control
 --------------------------
@@ -346,9 +346,7 @@ ViewModels.
 There are only three ways to communicate over the *thread gap*:
 
 1.  accessing a property
-
 2.  calling a *void* function (with not *out* or *ref* parameters)
-
 3.  having an *EventHandler* called
 
 All compliant ViewModels provide a *IsLoading* property that signifies
