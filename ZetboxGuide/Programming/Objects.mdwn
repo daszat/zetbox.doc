@@ -32,54 +32,45 @@ public interface DataType
 """]]
 
 [[!table header="no" data="""
-Name
-|   The name of the *DataType*. Note that this name has to be a valid
-    C\# name. A *Constraint* protects this.
-
-Description
-|   Each Type should have a description. This description is used for
-    documentation purposes.
-
-Properties
-|   Each Type can have Properties (except *Enumeration*)
-
-Methods
-|   Each Type can have Methods (except *Enumeration*)
-
-DefaultIcon
-|   Each *DataType* can have a default icon
-
-Constraints
-|   A *Constraint* checks the validity of an instance. If any constraint
-    throws an error nothing will be committed.
+Name        | The name of the *DataType*. Note that this name has to be a valid C# name. A *Constraint* protects this.
+Description | Each Type should have a description. This description is used for documentation purposes.
+Properties  | Each Type can have Properties (except *Enumeration*)
+Methods     | Each Type can have Methods (except *Enumeration*)
+DefaultIcon | Each *DataType* can have a default icon
+Constraints | A *Constraint* checks the validity of an instance. If any constraint throws an error nothing will be committed.
 """]]
 
 #### ObjectClass
 
 *ObjectClass* is *the* defining class for Zetbox Objects.
 
+[[!format cs """
 public interface ObjectClass : DataType
+{
+    ObjectClass BaseObjectClass; 
+	ICollection<Interface> ImplementsInterfaces;
 
-ObjectClass BaseObjectClass; ICollection\<Interface\>
-ImplementsInterfaces;
+    string TableName;
 
-string TableName;
+    bool IsAbstract; 
+	bool IsFrozenObject; 
+	bool IsSimpleObject;
 
-bool IsAbstract; bool IsFrozenObject; bool IsSimpleObject;
+    ViewModelDescriptor DefaultViewModelDescriptor; 
+	ControlKind RequestedKind;
 
-ViewModelDescriptor DefaultViewModelDescriptor; ControlKind
-RequestedKind;
+    ICollection<AccessControl> AccessControlList;
+}
+"""]]
 
-ICollection\<AccessControl\> AccessControlList;
-
-IsAbstract
-:   
-IsSimpleObject
-:   The *ObjectClass* is marked as a simple, non complex object. Set it
+[[!table header="no" data="""
+IsAbstract    | The *ObjectClass* is marked as abstract
+IsSimpleObject| The *ObjectClass* is marked as a simple, non complex object. Set it
     to true for all classes that have no inheritance and less enought
     and simple properties to edit them in grids and/or lists. This will
     prevent all list view models from opening such an object directly.
     Also the *ObjectBrowser* will not provide any interface.
+"""]]
 
 ### Relation
 
