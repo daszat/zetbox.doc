@@ -76,7 +76,7 @@ footer {
 }	
 
 /* images */
-div[class="content"] img {
+div[class="content"]  a > img {
     display: block;
     margin-left: auto;
     margin-right: auto;
