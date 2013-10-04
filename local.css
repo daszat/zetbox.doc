@@ -74,3 +74,17 @@ footer {
 .navbar .nav > li > a {
 	/* color: #003c64; default is pretty nice */
 }	
+
+/* images */
+.content > img {
+    margin-left: auto;
+    margin-right: auto;
+}
+img.medium {
+    width: 50%;
+	height: auto;
+}
+img.small {
+    width: 25%;
+	height: auto;
+}

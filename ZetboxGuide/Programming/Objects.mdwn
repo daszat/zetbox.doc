@@ -77,7 +77,7 @@ An example of a *Relation* is the relation between *Project* and
 *Tasks*. One *Project* can have zero or more *Tasks*. One *Tasks* must
 have a *Project*.
 
-[[!img Rel_1_n_Project_Tasks.png]]
+[[!img class="medium" Rel_1_n_Project_Tasks.png]]
 
 ### Modeling a relation
 
