@@ -331,10 +331,11 @@ B2  | The ViewModel looses *Focus*. Since the user has still a pending partial i
 MC1 | The Model is *changed* by a third party. This might be due to changes from the business logic or via other ViewModels. In any case the View should be signalled to update its display to the new Value.
 MC2 | The Model is *changed* by a third party. The user is currently editing the Value, so changes there should be ignored. In most cases this constitutes a programming error, as no code should try to change values while the user is editing them.
 MC3 | The Model is *changed* by the ViewModel. The View should be signalled to update its display to the new Value. Since this is in reaction to user input, this might not display a canonicalized value
-PI  | [[!template  id=note text="""Canceling is currently not supported"""]] The user enters *partial input*. The ViewModel will store this until the user completes or aborts her edit.
+PI  | The user enters *partial input*. The ViewModel will store this until the user completes or aborts /!\ her edit.
 VI  | The user enters *complete input*. The ViewModel accepts the input as valid and will proceed to write it back to the Model.
 """]]
-	
+
+[[!template  id=note text="""Canceling is currently not supported"""]]	
 
 Asynchronous Loading
 --------------------
@@ -365,7 +366,7 @@ cached value is returned immediately and optionally a refresh is
 triggered, which in turn may cause a PropertyChanged event a little bit
 later.
 
-[[!template  id=note text="""Todo: such a timer should be provided by the infrastructure for platform dependent refreshing"""]]
+[[!template  id=note text="""TODO: such a timer should be provided by the infrastructure for platform dependent refreshing"""]]
 In the case of time-dependent values, the ViewModel has to take care to
 establish a periodic refresh timer which triggers PropertyChanged
 events when new values arrive.
