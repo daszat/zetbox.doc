@@ -5,7 +5,7 @@ Objects
 
 Zetbox knows four kinds of Types, all derived from *DataType*:
 
-[[!table  data="""
+[[!table header="no" data="""
 ObjectClass    | Type for Zetbox Object Classes
 Interface      | Type for Zetbox Interfaces
 Enumeration    | Type for Zetbox Enumerations
