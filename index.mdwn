@@ -1,3 +1,13 @@
 Welcome to the zetbox documentation site.
 
-* How to [[setup a module|HowTos/ModuleSetup]].
+# About the flexible kit for business applications
+
+zetbox is an open-source software product used for efficient development, adjustment and extension of business aplications. The core part is an integration platform guaranteeing overall data management. Using the zetbox as a basement a system can access formerly programmed applications which can be adjusted flexibly to match the client needs. Additionally the zetbox offers a portfolio of components that can be used as a solid base for client specific programming of business applications. Hence the zetbox is an interesting instrument for developers as well as companies.
+
+[[!img dasz_ecosystem_for_devs]]
+
+More about the advantages of using the zetbox can be found on our company website <a href="http://dasz.at">http://dasz.at</a>
+
+# Table of contents
+
+* Getting started: how to [[setup a module|HowTos/ModuleSetup]].
