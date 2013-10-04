@@ -65,11 +65,7 @@ public interface ObjectClass : DataType
 
 [[!table header="no" data="""
 IsAbstract    | The *ObjectClass* is marked as abstract
-IsSimpleObject| The *ObjectClass* is marked as a simple, non complex object. Set it
-    to true for all classes that have no inheritance and less enought
-    and simple properties to edit them in grids and/or lists. This will
-    prevent all list view models from opening such an object directly.
-    Also the *ObjectBrowser* will not provide any interface.
+IsSimpleObject| The *ObjectClass* is marked as a simple, non complex object. Set it to true for all classes that have no inheritance and less enough and simple properties to edit them in grids and/or lists. This will prevent all list view models from opening such an object directly. Also the *ObjectBrowser* will not provide any interface.
 """]]
 
 ### Relation
@@ -81,8 +77,6 @@ An example of a *Relation* is the relation between *Project* and
 *Tasks*. One *Project* can have zero or more *Tasks*. One *Tasks* must
 have a *Project*.
 
-[ht]
-
 ![image](images/Rel_1_n_Project_Tasks.jpg) [example~f~or~r~elation]
 
 ### Modeling a relation
@@ -90,94 +84,72 @@ have a *Project*.
 A Relation can be defined by creating an object of type *Relation* and
 two *RelationEnd* objects. This can be done by
 
--   creating an Relation Object.
-
--   invoking the *Create Relation* method on an *ObjectClass* instance.
+* creating an Relation Object.
+* invoking the *Create Relation* method on an *ObjectClass* instance.
 
 *RelationEnd* objects will be created automatically.
 
 Relations are edited in the *Relation Editor*. The *Relation Editor* is
 a custom *FullObjectView* created by us.
 
-[ht]
-
-![image](images/ScreenShot_Rel_Project_Task.png)
-[example~f~or~e~diting~r~elation]
+![image](images/ScreenShot_Rel_Project_Task.png) [example~f~or~e~diting~r~elation]
 
 ### Attributes of a relation
-
-[ht]
 
 ![image](images/Rel_Attributes.png) [attributes~o~f~ar~elation]
 
 A *Relation* has these attributes:
 
-A text property used to describe the current relation
-
-The *Module* which is introducing the current relation
-
-The *StorageType* of the current relation
-
-A verb used to name the current relation. The verb is used in
-conjunction with the role names of the *RelationEnd* objects to model a
-unique relation name. This relation name will be used e.g. for the
-database FK Contraint name.
-
-The *RelationEnd* A of the current relation
-
-The *RelationEnd* B of the current relation
+[[!table header="no" data="""
+Description | A text property used to describe the current relation
+Module      | The *Module* which is introducing the current relation
+Storage     | The *StorageType* of the current relation
+Verb        | A verb used to name the current relation. The verb is used in conjunction with the role names of the *RelationEnd* objects to model a unique relation name. This relation name will be used e.g. for the database FK Contraint name.
+A           | The *RelationEnd* A of the current relation
+B           | The *RelationEnd* B of the current relation
+"""]]
 
 A *RelationEnd* has these attributes:
 
-*Relation* object if this *RelationEnd* is the A-Side of the current
-relation. Otherwise *NULL*
-
-*Relation* object if this *RelationEnd* is the B-Side of the current
-relation. Otherwise *NULL*
-
-Specifies that the list is ordered. Applies only to lists
-
-The *Multiplicity* of the current *RelationEnd*
-
-An optional *Navigator*
-
-Name of the role of the current *RelationEnd*
-
-*ObjectClass* to which the current *RelationEnd* points
+[[!table header="no" data="""
+AParent            | *Relation* object if this *RelationEnd* is the A-Side of the current relation. Otherwise *NULL*
+BParent            | *Relation* object if this *RelationEnd* is the B-Side of the current relation. Otherwise *NULL*
+HasPersistentOrder | Specifies that the list is ordered. Applies only to lists
+Multiplicity       | The *Multiplicity* of the current *RelationEnd*
+Navigator          | An optional *Navigator*
+RoleName           | Name of the role of the current *RelationEnd*
+Type               | *ObjectClass* to which the current *RelationEnd* points
+"""]]
 
 There are four *StorageTypes* defined:
 
-The relation information is stored with the A-side database table
-
-The relation information is stored with the B-side database table
-
-The relation information is stored on both sides of the relations
-database tables
-
-The relation information is stored in a separate database table
+[[!table header="no" data="""
+MergeIntoA | The relation information is stored with the A-side database table
+MergeIntoB | The relation information is stored with the B-side database table
+Replicate  | The relation information is stored on both sides of the relations database tables
+Separate   | The relation information is stored in a separate database table
+"""]]
 
 There are three *Multiplicities* defined:
 
-Optional Element (zero or one)
+[[!table header="no" data="""
+ZeroOrOne  | Optional Element (zero or one)
+One        | Required Element (exactly one)
+ZeroOrMore | Optional List Element (zero or more)
+"""]]
 
-Required Element (exactly one)
-
-Optional List Element (zero or more)
 
 ### 1:n Relation
 
 A *Project* can have zero or more *Tasks*. A *Task* may have one
 *Project*.
 
-[ht]
-
 ![image](images/Rel_1_n_Project_Tasks.png) [project~t~asks~r~elation]
 
 The *Relation* object would be:
 
-= MergeIntoB
-
-= has
+    *Storage* = MergeIntoB
+    *Verb* = has
 
 The *RelationEnd* A object would be:
 
@@ -213,8 +185,6 @@ to a *Project*
 
 = *Project* instance of type *ObjectClass*
 
-[ht]
-
 ![image](images/ScreenShot_Rel_Project_Task.png)
 [editing~p~roject~t~asks~r~elation]
 
@@ -222,8 +192,6 @@ to a *Project*
 
 A *Project* can have zero or more *ProjectMembers*. A *ProjectMember*
 can be assinged to zero or more *Projects*.
-
-[ht]
 
 ![image](images/Rel_n_m_Project_Member.png) [project~m~ember~r~elation]
 
@@ -267,8 +235,6 @@ The *RelationEnd* B object would be:
 
 = *Project* instance of type *ObjectClass*
 
-[ht]
-
 ![image](images/ScreenShot_Rel_Project_ProjectMember.png)
 [editing~p~roject~m~ember~r~elation]
 
@@ -276,8 +242,6 @@ The *RelationEnd* B object would be:
 
 A *Relation* must have a *RelationEnd* A. A *RelationEnd* may have a
 AParent *Relation* if it’s a A *ReleationEnd*.
-
-[ht]
 
 ![image](images/Rel_Attributes.png) [relation~r~elationend~r~elation]
 
@@ -320,8 +284,6 @@ reference to a *Relation*
 = A
 
 = *Relation* instance of type *ObjectClass*
-
-[ht]
 
 ![image](images/ScreenShot_Rel_Project_ProjectMember.png)
 [editing~r~elation~r~elationend~r~elation]
