@@ -8,6 +8,14 @@ zetbox is an open-source software product used for efficient development, adjust
 
 More about the advantages of using the zetbox can be found on our company website <a href="http://dasz.at">http://dasz.at</a>
 
+## Resources
+
+* Github: <a href="https://github.com/daszat/zetbox">https://github.com/daszat/zetbox</a>
+* Issues: <a href="https://github.com/daszat/zetbox/issues">https://github.com/daszat/zetbox/issues</a>
+* dasz.at NuGet source: <a href="https://office.dasz.at/ngf">https://office.dasz.at/ngf</a>
+** Latest Version: <a href="https://office.dasz.at/ngf/packages/zetboxBasic/">https://office.dasz.at/ngf/packages/zetboxBasic/</a>
+* Our homepage: <a href="http://dasz.at">http://dasz.at</a>
+
 ## Table of contents
 
 * [[zetbox guide|ZetboxGuide]].
