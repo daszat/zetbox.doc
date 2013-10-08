@@ -11,4 +11,4 @@ More about the advantages of using the zetbox can be found on our company websit
 ## Table of contents
 
 * [[zetbox guide|ZetboxGuide]].
-* Getting started: how to [[setup a module|HowTos/ModuleSetup]].
+* [[how to's|HowTos]].

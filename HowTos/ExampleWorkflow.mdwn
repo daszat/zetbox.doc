@@ -1,6 +1,6 @@
-[[!meta title="Setup a module"]]
+[[!meta title="Example: Workflow Component"]]
 
-This article will show you how we've implemented zetbox.Workflow. It will cover
+This article will show you how we've implemented zetbox.Workflow component. It will cover
 most of the features of zetbox.
 
 # Setting up the Project

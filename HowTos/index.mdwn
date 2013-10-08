@@ -1,4 +1,4 @@
 HowTo's
 =======
 
-* [[ModuleSetup]]
+* [[ExampleWorkflow]]
