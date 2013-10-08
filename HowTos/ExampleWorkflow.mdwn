@@ -95,6 +95,8 @@ Module Editor will open:
 
 [[!img ModuleEditor1.png]]
 
+# Creating a new Module
+
 Hit "New Module" and fill out the form:
 
 [[!img NewModule1.png]]
@@ -123,6 +125,8 @@ IF ERRORLEVEL 1 GOTO FAIL
 
 Sadly, you have to restart the Module Editor - it's a Bug, not a Feature :-(
 Select the "Workflow" Module.
+
+# Creating a Object Class
 
 At this stage you should have drawn a UML Diagram and be aware of all needed
 Classes. In this case they are:
@@ -162,6 +166,7 @@ If you save, there will be some errors:
  * Navigator should not have a NotNullConstrained - this is true, as the Module
    is optional. Delete that contstraint
 
+# Adding Properties
 
 Now we add some more basic properties:
 
@@ -180,6 +185,7 @@ char long. Go to "Main" -> "Constraints" and add a new "StringRangeConstraint.
 MinLength is 0, MaxLength is 100. 0 is fine as we also add a
 "NotNullConstraint". Do the same for Description.
 
+# Implementing Methods
 
 It's time for implementing some Methods. In Visual Studio add a simple class
 "WFDefinitionActions" in the Common Project under the Folder "Workflow". It is
@@ -231,6 +237,8 @@ class is unknown yet. Before we will generate we should define all other
 classes. We'll skip that in this tutorial because it's the same as with the
 WFDefinition class.
 
+# Define Relations
+
 Ten minutes later every class has been defined. Now it's time to define
 relations. Open the WFDefinition class and hit "CreateRelation":
 
@@ -243,6 +251,7 @@ StateDefinition has a tight relation to a Workflow Definition.
 "CreateNavigator" helps you to implement navigators on classes. We need both.
 Do the same for all other relations.
 
+# Publish and first startup
 
 Everything is defined now - let's generate the code
 
@@ -251,6 +260,8 @@ Everything is defined now - let's generate the code
 The solution should compile now. If so, start the server and client.
 
 [[!img NewClasses.png]]
+
+## Import missing assemblies
 
 Sadly, the classes are not working correctly. zetbox does not know about our
 method implementors yet. We have to register our assemblies now. Go to the
@@ -324,6 +335,8 @@ Now we have everything we need: A working Database, source control, a basic
 module, a basic implementation, import/export of data, schema management.... We
 continue with the implementation now.
 
+# Calculated properties, getter & setter
+
 Some interesting details:
 
 [[!img CalcProp.png]]
@@ -378,6 +391,7 @@ public static void Start(WFInstance obj, Zetbox.Basic.Workflow.WFDefinition work
 }
 """]]
 
+# ViewModels and Views
 When we look at a state instance, that's the users ToDo item, we see, that it's
 not really usable. Let's create a ViewModel and a View.
 
@@ -513,6 +527,7 @@ TabControl we will later put our controls to display. In the code behind of the
 XAML we simply implement "IHasViewModel". This is not necessary (yet) but
 you'll love the F12 feature :-)
 
+## ControlKinds
 Compile, start zetbox and go to "Module Editor" -> Assemblies. Select both
 Assemblies and Hit "Refresh Typerefs". Two Workspaces should open. One for the
 new View and one for the new ViewModel. In one of them, create a new
@@ -521,6 +536,7 @@ ControlKind and set the same in the other one. **The Control Kind must have
 
 [[!img ViewDesc.png]] [[!img ViewModelDesc.png]]
 
+## Wiring ObjectClass and ViewModels 
 Now go to the State Class and set the newly created ViewModel for the object.
 
 [[!img ObjectAndViewModel.png]]
@@ -543,6 +559,7 @@ Start server and client and your state object should look like this:
 
 [[!img EmptyStateObject.png]]
 
+## Placing widgets
 It's empty. We have to continue implementation...
 
 [[!format cs """
@@ -638,3 +655,18 @@ Much better:
 
 [[!img ObjectAndViewModel2.png]]
 
+# Summary
+
+In this article we have covered the most important features and tasks of our zetbox, namely
+
+* Setting up the Project
+* Creating a new Module
+* Creating a Object Class
+* Adding Properties
+* Implementing Methods
+* Define Relations
+* Publish Module definition
+* Calculated properties, getter & setter
+* ViewModels and Views
+
+We hope, that we have put some light on how to work with our zetbox.
