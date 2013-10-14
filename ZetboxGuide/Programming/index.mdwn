@@ -9,5 +9,6 @@ programmed and customized.
 * [[CompoundObjects]]
 * [[GraphicalUserInterface]]
 * [[EnhancingZetbox]]
+* [[Limitations]]
 * [[Internals]]
 * [[Development]]

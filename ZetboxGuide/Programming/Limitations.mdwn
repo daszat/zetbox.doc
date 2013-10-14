@@ -1,0 +1,8 @@
+Limitations
+-----------
+
+This chapter will describe some known limitations when working with various parts of zetbox.
+
+### Entity Framework
+
+* EF cannot persist object graphs which contain circular references between New objects. This is a well-known limitation of all current (up to and including EF6) versions and is tracked at [[EF's_codeplex_site|http://entityframework.codeplex.com/workitem/142]].
