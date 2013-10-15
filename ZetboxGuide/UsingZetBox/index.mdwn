@@ -30,10 +30,31 @@ Tags can be translated. The translated tag is only used in the title of a proper
 [[!img ClassYearlyRule.png class="medium"]]
 [[!img ClassWorkScheduleRule.png class="medium"]]
 
+### Methods
+Methods are not visible by default. The property "IsDisplayable" controls this.
+
+[[!img AppliesTo_Main.png class="medium"]]
+
+A Method can also have category tags. Methods will be grouped in a Menu. See Properties for details.
+
+"Show by Properties" is a way to display a Method in the Toolbar of a list property. Note: The selected item is not passed to the method.
+
+[[!img MethodTest-ObjParameter.png class="medium"]]
+[[!img MethodTest.png class="medium"]]
+
 Using custom ViewModels and Views for the UI
 --------------------------------------------
 
 TODO: 
+
+Custom code
+-----------
+
+### Action classes
+
+### Methods
+
+### Getter/Setter
 
 Dialogs
 -------
