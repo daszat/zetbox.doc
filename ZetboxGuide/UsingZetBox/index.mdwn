@@ -3,6 +3,25 @@ Using the ZetBox
 
 This chapter describes common tasks and how to use the ZetBox.
 
+Creating the UI from meta data
+------------------------------
+
+### Properties
+
+The default order of properties is defined by
+
+* The order within the data type
+* Inheritance: derived class first
+
+[[!img EditFixedYearlyRule.png class="medium"]]
+[[!img ClassFixedYearlyRule.png class="medium"]]
+[[!img ClassYearlyRule.png class="medium"]]
+[[!img ClassWorkScheduleRule.png class="medium"]]
+
+Using custom ViewModels and Views for the UI
+--------------------------------------------
+
+
 Dialogs
 -------
 
