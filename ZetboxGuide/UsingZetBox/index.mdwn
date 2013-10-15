@@ -13,6 +13,18 @@ The default order of properties is defined by
 * The order within the data type
 * Inheritance: derived class first
 
+Properties are grouped by their summary tags. Tags are separated by a comma ','. A underline '_' will be translated in a space. The order of tags is defined:
+
+1. Summary
+2. Main
+3. all other
+4. Meta
+
+The tag "Hidden" is only visible to Administrators. The Tag "Main", if not available "Summary", is selected first when the object has been opened.
+
+Tags can be translated. The translated tag is only used in the title of a property group. Thus tags should be entered in English. 
+
+**Example:**
 [[!img EditFixedYearlyRule.png class="medium"]]
 [[!img ClassFixedYearlyRule.png class="medium"]]
 [[!img ClassYearlyRule.png class="medium"]]
@@ -21,6 +33,7 @@ The default order of properties is defined by
 Using custom ViewModels and Views for the UI
 --------------------------------------------
 
+TODO: 
 
 Dialogs
 -------
