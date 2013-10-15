@@ -13,6 +13,9 @@ Usage is simple, just create a *SimpleDataObjectEditorTaskViewModel*,
 pass the ViewModel (can be any view model) to edit and call
 *ShowDialog*.
 
+[[!format cs """
 var dlg = ViewModelFactory
-.CreateViewModel\<SimpleDataObjectEditorTaskViewModel.Factory\>()
-.Invoke(DataContext, this, item); ViewModelFactory.ShowDialog(dlg);
+    .CreateViewModel<SimpleDataObjectEditorTaskViewModel.Factory>()
+    .Invoke(DataContext, this, item);
+ViewModelFactory.ShowDialog(dlg);
+"""]]
