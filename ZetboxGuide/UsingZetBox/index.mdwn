@@ -72,3 +72,28 @@ var dlg = ViewModelFactory
     .Invoke(DataContext, this, item);
 ViewModelFactory.ShowDialog(dlg);
 """]]
+
+If the user should chose from a list, the *DataObjectSelectionTaskViewModel* can be used:
+
+[[!format cs """
+var selectionTask = ViewModelFactory
+	.CreateViewModel<DataObjectSelectionTaskViewModel.Factory>()
+	.Invoke(
+		DataContext,
+		this,
+		typeof(Projekt).GetObjectClass(FrozenContext),
+		null,
+		(objs) =>
+		{
+			if (objs != null)
+			{
+				var prj = (Projekt)objs.First().Object;
+				...
+			}
+		},
+		null);
+selectionTask.ListViewModel.AllowDelete = false;
+selectionTask.ListViewModel.AllowOpen = false;
+selectionTask.ListViewModel.AllowAddNew = true;
+ViewModelFactory.ShowDialog(selectionTask);
+"""]]
