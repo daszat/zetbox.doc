@@ -51,8 +51,96 @@ Custom code
 -----------
 
 ### Action classes
+To implement custom actions the implementing class has to fulfil some conditions
+
+* It has to be in the same namespace as the class
+* The class name must end with *Actions* to avoid naming collisions
+* the class must be decorated with the [Implementor] attribute
+* the class can either be static or can provide a constructor with autofac dependencies
+
+Static action class
+[[!format cs """
+namespace Zetbox.App.Base
+{
+    [Implementor]
+    public static class PropertyActions
+    {
+	}
+}
+"""]]
+
+With dependencies
+[[!format cs """
+namespace Zetbox.App.Base
+{
+    [Implementor]
+    public class DataTypeActions
+    {
+		private static IViewModelFactory _vmf;
+        private static IFrozenContext _frozenCtx;
+
+        public DataTypeActions(IViewModelFactory vmf, IFrozenContext frozenCtx)
+        {
+            if (vmf == null) throw new ArgumentNullException("vmf");
+            if (frozenCtx == null) throw new ArgumentNullException("frozenCtx");
+
+            _vmf = vmf;
+            _frozenCtx = frozenCtx;
+        }	
+	}
+}
+"""]]
+
 
 ### Methods
+The best way to implement methods is to use the template provided by the module editor. 
+
+* the method must be decorated with the *[Invocation]* attribute.
+* the method must be static
+
+Examples:
+[[!format cs """
+[Invocation]
+public static void NotifyCreated(DateRangeFilterConfiguration obj)
+{
+}
+
+[Invocation]
+public static void NotifyPreSave(Event obj)
+{
+}
+		
+[Invocation]
+public static void NotifyDeleting(DataType obj)
+{
+}
+
+[Invocation]
+public static void AddProperty(DataType obj, MethodReturnEventArgs<Zetbox.App.Base.Property> e)
+{
+}
+"""]]
+
+The UI can check, if a method can be invoked. To provide the UI with information about that fact, implement *CanExec and CanExecReason methods
+[[!format cs """
+[Invocation]
+public static void Upload(File obj)
+{
+}
+
+[Invocation]
+public static void UploadCanExec(ImportedFile obj, MethodReturnEventArgs<bool> e)
+{
+	e.Result = obj.Blob == null;
+}
+
+[Invocation]
+public static void UploadCanExecReason(ImportedFile obj, MethodReturnEventArgs<string> e)
+{
+	e.Result = "Changing blob on imported files is not allowed";
+}
+"""]]
+
 
 ### Getter/Setter
 
