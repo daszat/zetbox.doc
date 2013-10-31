@@ -185,3 +185,19 @@ selectionTask.ListViewModel.AllowOpen = false;
 selectionTask.ListViewModel.AllowAddNew = true;
 ViewModelFactory.ShowDialog(selectionTask);
 """]]
+
+The create a fully customized dialog you can use the *DialogCreator*
+
+[[!format cs """
+using Zetbox.Client.GUI;
+
+var dlg = ViewModelFactory.CreateDialog(DataContext, CalendarResources.DlgDateRangeTitle)
+	.AddDateTime(CalendarResources.FromLabel, DateTime.Today)
+	.AddDateTime(CalendarResources.UntilLabel, DateTime.Today);
+dlg.Show((values) =>
+{
+	var from = ((DateTime)values[0]).Date;
+	var to = ((DateTime)values[1]).Date.AddDays(1);
+	...
+});
+"""]]
