@@ -62,9 +62,9 @@ Static action class
 [[!format cs """
 namespace Zetbox.App.Base
 {
-    [Implementor]
-    public static class PropertyActions
-    {
+	[Implementor]
+	public static class PropertyActions
+	{
 	}
 }
 """]]
@@ -73,20 +73,20 @@ With dependencies
 [[!format cs """
 namespace Zetbox.App.Base
 {
-    [Implementor]
-    public class DataTypeActions
-    {
+	[Implementor]
+	public class DataTypeActions
+	{
 		private static IViewModelFactory _vmf;
-        private static IFrozenContext _frozenCtx;
+		private static IFrozenContext _frozenCtx;
 
-        public DataTypeActions(IViewModelFactory vmf, IFrozenContext frozenCtx)
-        {
-            if (vmf == null) throw new ArgumentNullException("vmf");
-            if (frozenCtx == null) throw new ArgumentNullException("frozenCtx");
+		public DataTypeActions(IViewModelFactory vmf, IFrozenContext frozenCtx)
+		{
+			if (vmf == null) throw new ArgumentNullException("vmf");
+			if (frozenCtx == null) throw new ArgumentNullException("frozenCtx");
 
-            _vmf = vmf;
-            _frozenCtx = frozenCtx;
-        }	
+			_vmf = vmf;
+			_frozenCtx = frozenCtx;
+		}	
 	}
 }
 """]]
@@ -156,8 +156,8 @@ pass the ViewModel (can be any view model) to edit and call
 
 [[!format cs """
 var dlg = ViewModelFactory
-    .CreateViewModel<SimpleDataObjectEditorTaskViewModel.Factory>()
-    .Invoke(DataContext, this, item);
+	.CreateViewModel<SimpleDataObjectEditorTaskViewModel.Factory>()
+	.Invoke(DataContext, this, item);
 ViewModelFactory.ShowDialog(dlg);
 """]]
 
@@ -192,12 +192,12 @@ The create a fully customized dialog you can use the *DialogCreator*
 using Zetbox.Client.GUI;
 
 var dlg = ViewModelFactory.CreateDialog(DataContext, CalendarResources.DlgDateRangeTitle)
-	.AddDateTime(CalendarResources.FromLabel, DateTime.Today)
-	.AddDateTime(CalendarResources.UntilLabel, DateTime.Today);
+	.AddDateTime("from", CalendarResources.FromLabel, DateTime.Today)
+	.AddDateTime("to", CalendarResources.UntilLabel, DateTime.Today);
 dlg.Show((values) =>
 {
-	var from = ((DateTime)values[0]).Date;
-	var to = ((DateTime)values[1]).Date.AddDays(1);
+	var from = ((DateTime)values["from"]).Date;
+	var to = ((DateTime)values["to"]).Date.AddDays(1);
 	...
 });
 """]]
