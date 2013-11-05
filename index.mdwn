@@ -15,6 +15,7 @@ More about the advantages of using the zetbox can be found on our company websit
 * dasz.at NuGet source: <a href="https://office.dasz.at/ngf">https://office.dasz.at/ngf</a>
   * Latest Version: <a href="https://office.dasz.at/ngf/packages/zetboxBasic/">https://office.dasz.at/ngf/packages/zetboxBasic/</a>
   * Visual Studio 2010 template: <a href="https://github.com/daszat/zetbox/blob/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix" title="ZetboxApp.vsix" target="_blank">https://github.com/daszat/zetbox/blob/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix</a>
+  * NugetFeed API URL: https://office.dasz.at/ngf/api/v2/  
 * Our homepage: <a href="http://dasz.at">http://dasz.at</a>
 
 ## Table of contents
