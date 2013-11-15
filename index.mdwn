@@ -17,8 +17,29 @@ More about the advantages of using the zetbox can be found on our company websit
   * Visual Studio 2010 template: <a href="https://github.com/daszat/zetbox/raw/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix" title="ZetboxApp.vsix" target="_blank">https://github.com/daszat/.../ZetboxApp.vsix</a>
     * Requires Arebis Template Processor: <a href="Resources/Arebis-Installer-1.3.1.0.msi" title="Arebis-Installer-1.3.1.0.msi" target="_blank">Arebis-Installer-1.3.1.0.msi</a>
   * NugetFeed API URL: https://office.dasz.at/ngf/api/v2/  
-  
 * Our homepage: <a href="http://dasz.at">http://dasz.at</a>
+
+## Preparations for developing
+
+* Install <a href="https://github.com/daszat/zetbox/raw/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix" title="ZetboxApp.vsix" target="_blank">https://github.com/daszat/.../ZetboxApp.vsix</a>
+* Install <a href="Resources/Arebis-Installer-1.3.1.0.msi" title="Arebis-Installer-1.3.1.0.msi" target="_blank">Arebis-Installer-1.3.1.0.msi</a>
+* Enable URL Reservation
+
+    netsh http add urlacl url=http://+:6666/ user="Everyone"
+
+* If using Postgres, add these schema, language and function as administrator on each database or in template0
+
+    CREATE SCHEMA dbo;
+    ALTER SCHEMA dbo OWNER TO zetbox;
+    
+    CREATE PROCEDURAL LANGUAGE plpgsql;
+    ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO postgres;
+
+    CREATE OR REPLACE FUNCTION public.uuid_generate_v4()
+    RETURNS uuid
+    AS '$libdir/uuid-ossp', 'uuid_generate_v4'
+    VOLATILE STRICT LANGUAGE C;
+
 
 ## Table of contents
 
