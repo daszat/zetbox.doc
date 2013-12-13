@@ -4,3 +4,137 @@ This article will show you how to migrate a given Access Database to zetbox.
 
 # Setting up the Migration Project
 
+[[!format xml """
+  <Server StartServer="true">
+    <ConnectionStrings>
+      <Database Name="zetbox" Schema="POSTGRESQL" Provider="NHibernate.Dialect.PostgreSQL82Dialect">Server=localhost;Port=5432;Database=myproject;User Id=zbox</Database>
+      <Database Name="MyProjectMigration_dest" Schema="POSTGRESQL" Provider="">Server=localhost;Port=5432;Database=myproject_staging;User Id=zbox;</Database>
+      <Database Name="MyProjectMigration_src" Schema="OLEDB" Provider="">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\MyProject.mdb</Database>
+    </ConnectionStrings>
+"""]]
+
+[[!format cs """
+namespace MyProject.Migrate
+{
+	sealed class Program
+        : MigrationProgram
+    {
+        private readonly static log4net.ILog Log = log4net.LogManager.GetLogger("MyProject.Migrate");
+
+        static int Main(string[] arguments)
+        {
+            try
+            {
+                var program = new Program("My Migration", arguments);
+
+                program.Execute();
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error in program execution", ex);
+                return 1;
+            }
+        }
+
+        private Program(string name, string[] arguments)
+            : base(name, arguments)
+        {
+        }
+		
+		private ISchemaProvider dst;
+        private ISchemaProvider source;
+		
+		private bool reloadstaging = false;
+        protected override OptionSet CreateOptionSet()
+        {
+            var options = base.CreateOptionSet();
+
+            options.Add("reloadstaging", (arg) => reloadstaging = true);
+
+            return options;
+        }
+
+        protected override void ExecuteCore(IKistlServerContext ctx)
+        {
+            try
+            {
+                if (reloadstaging)
+                {
+                    ReloadStaging(ctx);
+                }
+                else
+                {
+                    Prepare(ctx);
+                    ClearDestination(ctx);
+                    CreateDefaultData(ctx);
+                    Migrate(ctx);
+                    UpdateImportedData(ctx);
+                }
+            }
+            catch (MigrationException ex)
+            {
+                Logging.MailNotification.Error("Migration failed", ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Logging.MailNotification.Error("Migration failed unexpectedly", ex);
+                throw;
+            }
+        }
+		
+		private void Prepare(IKistlContext ctx)
+        {
+            var connectionString = Config.Server.GetConnectionString(Helper.ZetboxConnectionStringKey);
+            dst = OpenProvider(ApplicationScope, connectionString.SchemaProvider, connectionString.ConnectionString);
+
+            // TODO: use named objects
+            var stage = ctx.FindPersistenceObject<StagingDatabase>(new Guid("4bde972d-19c7-4513-87d7-cacc30daeae3"));
+
+            Log.Info("reset destination");
+            var connectionStringStamm = Config.Server.GetConnectionString("MyProjectMigration_dest");
+            source = OpenProvider(ApplicationScope, connectionStringStamm.SchemaProvider, connectionStringStamm.ConnectionString);
+            source.DropSchema(stage.Schema, true);
+            source.CreateSchema(stage.Schema);
+
+            executor = ApplicationScope.Resolve<TaskFactory>().Invoke(source, dst);
+        }
+
+        private void ReloadStaging(IKistlContext ctx)
+        {
+            using (Log.InfoTraceMethodCall("reloading staging"))
+            {
+                // TODO: use named objects
+                var mp = ctx.FindPersistenceObject<MigrationProject>(new Guid("B18F31E7-6F3A-4A14-A966-48F89D537808"));
+
+                if (mp == null)
+                {
+                    throw new InvalidOperationException("Migrationsprojekt {B18F31E7-6F3A-4A14-A966-48F89D537808} nicht gefunden");
+                }
+
+                foreach (var stage in mp.StagingDatabases)
+                {
+                    ReloadStaging(stage);
+                }
+                Logging.MailNotification.Info("Staging Load finished");
+            }
+        }
+		
+		private void Migrate(IZetboxContext ctx)
+        {
+			executor.TableBaseMigration(tables["tbl_Projects"]);
+			executor.TableBaseMigration(tables["tbl_Tasks"]);
+			
+			// update statistics to not blow up postgres' optimizer
+            dst.RefreshDbStats();
+		}
+		
+		private void ClearDestination(IKistlContext ctx)
+        {
+            // required ordering            
+            executor.CleanDestination(dst.GetTableName("prj", "Tasks"));
+            executor.CleanDestination(dst.GetTableName("prj", "Projects"));
+		}
+"""]]
