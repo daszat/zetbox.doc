@@ -6,7 +6,12 @@ This article will show you how to migrate a given Access Database to zetbox.
 
 [[!format cmd """
 rem export SchemaMigration projects
-Zetbox.Server.Cli.exe %config% -export ..\..\Data\SchemaMigrationProject.xml -schemamodules SchemaMigration
+Zetbox.Cli.exe %config% -export ..\..\Data\SchemaMigrationProject.xml -schemamodules SchemaMigration
+IF ERRORLEVEL 1 GOTO FAIL
+"""]]
+
+[[!format cmd """
+Zetbox.Cli.exe %config% -import ..\..\Data\SchemaMigrationProject.xml
 IF ERRORLEVEL 1 GOTO FAIL
 """]]
 
