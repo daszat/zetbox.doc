@@ -56,6 +56,8 @@ namespace MyProject.Migrate
 		
 		private ISchemaProvider dst;
         private ISchemaProvider source;
+		private IMigrationTasks executor;
+		private Dictionary<string, SourceTable> tables;
 		
 		private bool reloadstaging = false;
         protected override OptionSet CreateOptionSet()
@@ -111,6 +113,7 @@ namespace MyProject.Migrate
             source.CreateSchema(stage.Schema);
 
             executor = ApplicationScope.Resolve<TaskFactory>().Invoke(source, dst);
+			tables = stage_stamm.SourceTables.Where(t => t.DestinationObjectClass != null).Concat(stage_stat.SourceTables.Where(t => t.DestinationObjectClass != null)).ToDictionary(t => t.Name);
         }
 
         private void ReloadStaging(IKistlContext ctx)
