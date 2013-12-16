@@ -46,3 +46,35 @@ In the migration project, create a statging database. Your origin data will be c
 Two Guids has to be fixed in the migration project. These are the export guids of the migration project and the staging database.
 
 [[!img FixGuids.png]]
+
+Now the migration process can be started to fill the staging database
+
+[[!format cmd """
+cd bin\debug
+MyProject.Migrate.exe --reloadstaging
+"""]]
+
+The output:
+
+[[!format cmd """
+Zetbox.API.Migration: 2013-12-16 13:16:07,905 [1] INFO  Zetbox.API.Migration [ Migration reloading staging] - >> Reload: Reloading staging database [The Mechanic Staging]
+Zetbox.Server.Schema.Report.OLEDB: 2013-12-16 13:16:07,911 [1] INFO  Zetbox.Server.Schema.Report.OLEDB [ Migration reloading staging Reload] - Opening connection to [Provider=Microsoft.Jet.OLEDB.4.0;Data Source=..\..\TheMechanic.mdb]
+Zetbox.Server.Schema.Report.POSTGRESQL: 2013-12-16 13:16:07,949 [1] INFO  Zetbox.Server.Schema.Report.POSTGRESQL [ Migration reloading staging Reload] - Opening connection to [HOST=localhost;PORT=5432;PROTOCOL=3;DATABASE=TheMechanic_staging;USER ID=zetbox;SSL=False;SSLMODE=Disable;TIMEOUT=15;SEARCHPATH=;POOLING=True;CONNECTIONLIFETIME=15;MINPOOLSIZE=1;MAXPOOLSIZE=20;SYNCNOTIFICATION=False;COMMANDTIMEOUT=20;ENLIST=False;PRELOADREADER=False;USEEXTENDEDTYPES=False;INTEGRATED SECURITY=False;COMPATIBLE=2.0.11.93;APPLICATIONNAME=]
+Zetbox.Server.Schema.Report.POSTGRESQL: 2013-12-16 13:16:07,996 [1] INFO  Zetbox.Server.Schema.Report.POSTGRESQL [ Migration reloading staging Reload] - >> DropSchema: Dropping schema [mech], force=True
+Zetbox.Server.Schema.Report.POSTGRESQL: 2013-12-16 13:16:08,008 [1] INFO  Zetbox.Server.Schema.Report.POSTGRESQL [ Migration reloading staging Reload] - << 11ms DropSchema: Dropping schema [mech], force=True
+Zetbox.PerfCounter.Methods: 2013-12-16 13:16:08,010 [1] INFO  Zetbox.PerfCounter.Methods [ Migration reloading staging Reload] - DropSchema;11;"Dropping schema [mech], force=True"
+Zetbox.Server.Schema.Report.POSTGRESQL: 2013-12-16 13:16:08,011 [1] INFO  Zetbox.Server.Schema.Report.POSTGRESQL [ Migration reloading staging Reload] - Creating schema [mech]
+Zetbox.API.Migration: 2013-12-16 13:16:08,054 [1] INFO  Zetbox.API.Migration [ Migration reloading staging Reload] - Migrating table Ref: ''.''.'Customers'
+Zetbox.Server.Schema.Report.POSTGRESQL: 2013-12-16 13:16:08,078 [1] INFO  Zetbox.Server.Schema.Report.POSTGRESQL [ Migration reloading staging Reload] - CreateTable Ref: ''.'mech'.'Customers' with 9 columns
+Zetbox.Server.Schema.Npgsql.COPY: 2013-12-16 13:16:08,138 [1] INFO  Zetbox.Server.Schema.Npgsql.COPY [ Migration reloading staging Reload] - COPY "mech"."Customers" ("BirthDate","CarModel","CarNextCheck","CarRegNumber","CarType","CarYear","FirstName","ID","LastName") FROM STDIN WITH DELIMITER '|' NULL E'\\N'
+Zetbox.API.Migration: 2013-12-16 13:16:08,189 [1] INFO  Zetbox.API.Migration [ Migration reloading staging] - << 282ms Reload: Reloading staging database [The Mechanic Staging]
+Zetbox.PerfCounter.Methods: 2013-12-16 13:16:08,191 [1] INFO  Zetbox.PerfCounter.Methods [ Migration reloading staging] - Reload;282;"Reloading staging database [The Mechanic Staging]"
+Zetbox.MailNotification: 2013-12-16 13:16:08,192 [1] INFO  Zetbox.MailNotification [ Migration reloading staging] - Staging Load finished
+TheMechanic.Migrate: 2013-12-16 13:16:08,193 [1] INFO  TheMechanic.Migrate [ Migration] - << 2,541ms reloading staging
+Zetbox.PerfCounter.Methods: 2013-12-16 13:16:08,195 [1] INFO  Zetbox.PerfCounter.Methods [ Migration] - reloading staging;2541;""
+Zetbox.API.Migration: 2013-12-16 13:16:08,196 [1] INFO  Zetbox.API.Migration [] - << 6,848ms Migration: Executing migration for [TheMechanic.Migrate]
+Zetbox.PerfCounter.Methods: 2013-12-16 13:16:08,198 [1] INFO  Zetbox.PerfCounter.Methods [] - Migration;6848;"Executing migration for [TheMechanic.Migrate]"
+Zetbox.MailNotification: 2013-12-16 13:16:08,200 [1] INFO  Zetbox.MailNotification [] - Migration finished
+TheMechanic.Migrate: 2013-12-16 13:16:08,202 [1] WARN  TheMechanic.Migrate [] - Migration successfull.
+The program '[8104] TheMechanic.Migrate.exe: Managed (v4.0.30319)' has exited with code 0 (0x0).
+"""]]
