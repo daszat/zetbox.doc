@@ -29,3 +29,20 @@ Migration configuration xml: Check SQL settings
     </ConnectionStrings>
 """]]
 
+# Setting up Schema Migration
+Open zetbox and go to the SchemaMigration module. Create a SchemaMigrationProject. 
+
+[[!img CreateMigrationProject1.png]]
+[[!img CreateMigrationProject2.png]]
+
+In the migration project, create a statging database. Your origin data will be copied to this staging database first. The migration process will use the stating database as a source.
+
+[[!img CreateStagingDatabase.png]]
+
+* _ConnectionStringKey for Destination_ is the key in your config file for the *Staging Database*. Remember: The process will copy your origin data to the staging database first, so this is the destination for now.
+* _Schema in Destination_ is the schema in your staging database where your source should be copied. This is usefull when there is more than one origin source. The staging database remains the same, but the destination schema will change.
+* _ConnectionStringKey for Source_ is the key in your config file for your origin data.
+
+Two Guids has to be fixed in the migration project. These are the export guids of the migration project and the staging database.
+
+[[!img FixGuids.png]]
