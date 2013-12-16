@@ -2,4 +2,4 @@ HowTo's
 =======
 
 * [[ExampleWorkflow]]
-* [[Migartion]]
+* [[Migration]]
