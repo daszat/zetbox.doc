@@ -83,6 +83,7 @@ See also: https://github.com/daszat/zetbox/tree/master/Zetbox.Client.WPF/Styles
 These styles can be applied to customize the UI:
 
 *AreaGroup1* - an Area level 1
+
 * AreaGroup1TabControl - style for tab controls
 * AreaGroup1TabItem - style for tab items
 * Area1Expander - style for expanders
@@ -92,6 +93,7 @@ These styles can be applied to customize the UI:
 See https://github.com/daszat/zetbox/blob/master/Zetbox.Client.WPF/Styles/DefaultViews.xaml for detailed definitions
 
 *ItemGroup1* - an ItemGroup level 1
+
 * ItemGroup1TabControl - style for tab controls
 * ItemGroup1TabItem - style for tab items
 * Item1Expander - style for expanders
@@ -101,6 +103,7 @@ See https://github.com/daszat/zetbox/blob/master/Zetbox.Client.WPF/Styles/Defaul
 See https://github.com/daszat/zetbox/blob/master/Zetbox.Client.WPF/Styles/DefaultViews.xaml for detailed definitions
 
 These Margins and Paddings are defined:
+
 * AreaGroup1Margin
 * AreaGroup1Padding
 * ItemGroup1Margin
@@ -109,6 +112,7 @@ These Margins and Paddings are defined:
 * DialogMargin
 
 These Font-Sizes are defined:
+
 * BigFontSize
 * LargeFontSize
 * NormalFontSize
@@ -117,6 +121,7 @@ These Font-Sizes are defined:
 To enlarge fonts global, override these styles like described earlier.
 
 Buttons:
+
 * ImageButton - to add an image to ctrls:CommandButton
 * ImageOnlyButton - ctrls:CommandButton only with an image
 * LinkButton - a button styled as a hyperlink
@@ -124,6 +129,7 @@ Buttons:
 * ImageOnlyToolbarButton - ctrls:CommandButton in tollbars only with an image
 
 Other styles:
+
 * zbTitle - for a TextBlock, used as a title
 
 Custom code
