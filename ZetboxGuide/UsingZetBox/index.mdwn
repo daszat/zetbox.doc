@@ -47,6 +47,85 @@ Using custom ViewModels and Views for the UI
 
 TODO: 
 
+Styling the UI
+--------------
+
+Styles for basic controls are defined by the zetbox. They can be overridden by registering own styles:
+
+[[!format cs """
+[Feature(NotOnFallback = true)]
+public class MyWpfModule : Module
+{
+	protected override void Load(ContainerBuilder moduleBuilder)
+	{
+		base.Load(moduleBuilder);
+
+		try
+		{
+			moduleBuilder
+				.RegisterInstance<ResourceDictionary>(new ResourceDictionary() { Source = new Uri("/MyProject.App.Client.WPF;component/View/Common/MyProjectStyles.xaml", UriKind.Relative) })
+				.WithMetadata(WPFHelper.RESOURCE_DICTIONARY_KIND, WPFHelper.RESOURCE_DICTIONARY_STYLE);
+			moduleBuilder
+				.RegisterInstance<ResourceDictionary>(new ResourceDictionary() { Source = new Uri("/MyProject.App.Client.WPF;component/View/Common/MyProjectViews.xaml", UriKind.Relative) })
+				.WithMetadata(WPFHelper.RESOURCE_DICTIONARY_KIND, WPFHelper.RESOURCE_DICTIONARY_VIEW);
+		}
+		catch (Exception ex)
+		{
+			Logging.Client.Warn("Unable to register MyProject styles", ex);
+		}
+		 ...
+	 }
+}
+"""]]
+
+See also: https://github.com/daszat/zetbox/tree/master/Zetbox.Client.WPF/Styles 
+
+These styles can be applied to customize the UI:
+
+*AreaGroup1* - an Area level 1
+* AreaGroup1TabControl - style for tab controls
+* AreaGroup1TabItem - style for tab items
+* Area1Expander - style for expanders
+* AreaGroup1GroupBox - style for group boxes
+* AreaGroup1BorderStyle - style for borders
+
+See https://github.com/daszat/zetbox/blob/master/Zetbox.Client.WPF/Styles/DefaultViews.xaml for detailed definitions
+
+*ItemGroup1* - an ItemGroup level 1
+* ItemGroup1TabControl - style for tab controls
+* ItemGroup1TabItem - style for tab items
+* Item1Expander - style for expanders
+* ItemGroup1GroupBox - style for group boxes
+* ItemGroup1BorderStyle - style for borders
+
+See https://github.com/daszat/zetbox/blob/master/Zetbox.Client.WPF/Styles/DefaultViews.xaml for detailed definitions
+
+These Margins and Paddings are defined:
+* AreaGroup1Margin
+* AreaGroup1Padding
+* ItemGroup1Margin
+* ItemGroup1Padding
+* ItemMargin
+* DialogMargin
+
+These Font-Sizes are defined:
+* BigFontSize
+* LargeFontSize
+* NormalFontSize
+* SmallFontSize
+
+To enlarge fonts global, override these styles like described earlier.
+
+Buttons:
+* ImageButton - to add an image to ctrls:CommandButton
+* ImageOnlyButton - ctrls:CommandButton only with an image
+* LinkButton - a button styled as a hyperlink
+* ImageToolbarButton - to add an image to ctrls:CommandButton in toolbars
+* ImageOnlyToolbarButton - ctrls:CommandButton in tollbars only with an image
+
+Other styles:
+* zbTitle - for a TextBlock, used as a title
+
 Custom code
 -----------
 
@@ -244,3 +323,4 @@ public class MethodActions
 }
  
 """]]
+
