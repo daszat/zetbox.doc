@@ -15,14 +15,14 @@ More about the advantages of using the zetbox can be found on our company websit
 * dasz.at NuGet source: <a href="https://office.dasz.at/ngf">https://office.dasz.at/ngf</a>
   * Latest Version: <a href="https://office.dasz.at/ngf/packages/zetboxBasic/">https://office.dasz.at/ngf/packages/zetboxBasic/</a>
   * Visual Studio 2010 template: <a href="https://github.com/daszat/zetbox/raw/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix" title="ZetboxApp.vsix" target="_blank">https://github.com/daszat/.../ZetboxApp.vsix</a>
-    * Requires Arebis Template Processor: <a href="Resources/Arebis-Installer-1.3.1.0.msi" title="Arebis-Installer-1.3.1.0.msi" target="_blank">Arebis-Installer-1.3.1.0.msi</a>
+    * Requires Arebis Template Processor: <a href="Resources/Arebis-Installer-1.3.2.0.msi" title="Arebis-Installer-1.3.2.0.msi" target="_blank">Arebis-Installer-1.3.2.0.msi</a>
   * NugetFeed API URL: https://office.dasz.at/ngf/api/v2/  
 * Our homepage: <a href="http://dasz.at">http://dasz.at</a>
 
 ## Preparations for developing
 
 * Install <a href="https://github.com/daszat/zetbox/raw/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix" title="ZetboxApp.vsix" target="_blank">https://github.com/daszat/.../ZetboxApp.vsix</a>
-* Install <a href="Resources/Arebis-Installer-1.3.1.0.msi" title="Arebis-Installer-1.3.1.0.msi" target="_blank">Arebis-Installer-1.3.1.0.msi</a>
+* Install <a href="Resources/Arebis-Installer-1.3.2.0.msi" title="Arebis-Installer-1.3.2.0.msi" target="_blank">Arebis-Installer-1.3.2.0.msi</a>
 * Enable URL Reservation
 
       netsh http add urlacl url=http://+:6666/ user="Everyone"
