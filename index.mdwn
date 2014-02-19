@@ -27,7 +27,7 @@ More about the advantages of using the zetbox can be found on our company websit
 
       netsh http add urlacl url=http://+:6666/ user="Everyone"
 
-* If using Postgres, add these schema, language and function as administrator on each database or in template0
+* If using Postgres, add these schema, language and function as administrator on each database or in template1
 
       CREATE SCHEMA dbo;
       ALTER SCHEMA dbo OWNER TO zetbox;
