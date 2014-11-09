@@ -16,10 +16,10 @@ More about the advantages of using the zetbox can be found on our company websit
   * Latest Version: <a href="https://office.dasz.at/ngf/packages/zetboxBasic/">https://office.dasz.at/ngf/packages/zetboxBasic/</a>
   * Visual Studio 2010 template: <a href="https://github.com/daszat/zetbox/raw/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix" title="ZetboxApp.vsix" target="_blank">https://github.com/daszat/.../ZetboxApp.vsix</a>
     * Requires Arebis Template Processor: <a href="Resources/Arebis-Installer-1.3.4.0.msi" title="Arebis-Installer-1.3.4.0.msi" target="_blank">Arebis-Installer-1.3.4.0.msi</a>
-  * NugetFeed API URL: https://office.dasz.at/ngf/api/v2/  
+  * **NugetFeed API URL**: https://office.dasz.at/ngf/api/v2/
 * Our homepage: <a href="http://dasz.at">http://dasz.at</a>
 
-## Preparations for developing
+## Preparations for developing with zetbox
 
 * Install <a href="https://github.com/daszat/zetbox/raw/master/Templates/ProjectTemplates/ZetboxApp.output/ZetboxApp.vsix" title="ZetboxApp.vsix" target="_blank">https://github.com/daszat/.../ZetboxApp.vsix</a>
 * Install <a href="Resources/Arebis-Installer-1.3.4.0.msi" title="Arebis-Installer-1.3.4.0.msi" target="_blank">Arebis-Installer-1.3.4.0.msi</a>
@@ -29,17 +29,29 @@ More about the advantages of using the zetbox can be found on our company websit
 
 * If using Postgres, add these schema, language and function as administrator on each database or in template1
 
+      CREATE ROLE zetbox LOGIN ENCRYPTED PASSWORD 'md540a817fa69a336657412400eb1a663ef'
+          VALID UNTIL 'infinity';
+
       CREATE SCHEMA dbo;
       ALTER SCHEMA dbo OWNER TO zetbox;
-      
+
+      -- only on 8.4
       CREATE PROCEDURAL LANGUAGE plpgsql;
       ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO postgres;
-  
+
       CREATE OR REPLACE FUNCTION public.uuid_generate_v4()
       RETURNS uuid
       AS '$libdir/uuid-ossp', 'uuid_generate_v4'
       VOLATILE STRICT LANGUAGE C;
 
+## Additional packages you'll need for working on zetbox itself
+
+* Merge the `Tools\powershell.executionpolicy*.reg` file matching your OS
+* [MVC 3](http://www.asp.net/mvc/mvc3)
+* [MVC 3 security update](http://www.microsoft.com/en-us/download/details.aspx?id=44533), which is provided via Windows Update only if you specify updates for "Windows *and other products*".
+* Set your local `zenv` environment variable to one of `Local\{EF,NHibernate}\{MSSQL,PostgreSQL}`, depending on your primary development target.
+* create a new database called `zetbox`, owned by `zetbox`.
+* Install [Gendarme 2.11](https://github.com/spouliot/gendarme/downloads).
 
 ## Table of contents
 
