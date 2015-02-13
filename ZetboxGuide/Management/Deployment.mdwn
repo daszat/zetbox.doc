@@ -247,3 +247,30 @@ trusts Apache and uses the passed identity (through the HTTP Header).
 
 Deployment on a Windows Server
 ------------------------------
+
+Setting up security
+-------------------
+
+Two major things has to be configured
+
+- IIdentitySource: This is where the Identities came from. Like a .htaccess file or a LDAP Server
+
+- IPrincipalResolver: This is the method, how the current identity is being resolved
+
+### IIdentitySource
+
+A Identity Source syncs one source with zetbox Identites. It's not necessary, to have one. You can edit the Identites in zetbox directly.
+
+- ActiveDirectoryIdentitySource: Syncs from a Active Directory or LDAP Source
+
+- HtpasswdIdentitySource: Syncs from a .htpasswd file
+
+- PosixIdentitySource: Syncs Linux user
+
+### IPrincipalResolver
+
+- NullIdentityResolver: For testing only
+
+- ThreadPrincipalResolver: Uses the current Identity on the current thread. This is the default method. On the server side, the application server (WCF or HTTP) is responsible to set the current identity.
+
+- BasicAuthPrincipalResolver: This is used only on the client side. It opens a Dialog asking the user for credentials.
